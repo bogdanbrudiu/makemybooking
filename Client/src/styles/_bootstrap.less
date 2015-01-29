@@ -1,0 +1,89 @@
+// Core variables and mixins
+@import "../../bower_components/bootstrap/less/variables.less";
+@import "../../bower_components/bootstrap/less/mixins.less";
+
+// Reset
+@import "../../bower_components/bootstrap/less/normalize.less";
+@import "../../bower_components/bootstrap/less/print.less";
+
+// Core CSS
+@import "../../bower_components/bootstrap/less/scaffolding.less";
+@import "../../bower_components/bootstrap/less/type.less";
+@import "../../bower_components/bootstrap/less/code.less";
+@import "../../bower_components/bootstrap/less/grid.less";
+@import "../../bower_components/bootstrap/less/tables.less";
+@import "../../bower_components/bootstrap/less/forms.less";
+@import "../../bower_components/bootstrap/less/buttons.less";
+
+// Components
+@import "../../bower_components/bootstrap/less/component-animations.less";
+@import "../../bower_components/bootstrap/less/glyphicons.less";
+@import "../../bower_components/bootstrap/less/dropdowns.less";
+@import "../../bower_components/bootstrap/less/button-groups.less";
+@import "../../bower_components/bootstrap/less/input-groups.less";
+@import "../../bower_components/bootstrap/less/navs.less";
+@import "../../bower_components/bootstrap/less/navbar.less";
+//@import "../../bower_components/bootstrap/less/breadcrumbs.less";
+//@import "../../bower_components/bootstrap/less/pagination.less";
+//@import "../../bower_components/bootstrap/less/pager.less";
+@import "../../bower_components/bootstrap/less/labels.less";
+//@import "../../bower_components/bootstrap/less/badges.less";
+//@import "../../bower_components/bootstrap/less/jumbotron.less";
+//@import "../../bower_components/bootstrap/less/thumbnails.less";
+@import "../../bower_components/bootstrap/less/alerts.less";
+//@import "../../bower_components/bootstrap/less/progress-bars.less";
+//@import "../../bower_components/bootstrap/less/media.less";
+@import "../../bower_components/bootstrap/less/list-group.less";
+@import "../../bower_components/bootstrap/less/panels.less";
+@import "../../bower_components/bootstrap/less/wells.less";
+@import "../../bower_components/bootstrap/less/close.less";
+
+// Components w/ JavaScript
+//@import "../../bower_components/bootstrap/less/modals.less";
+//@import "../../bower_components/bootstrap/less/tooltip.less";
+//@import "../../bower_components/bootstrap/less/popovers.less";
+//@import "../../bower_components/bootstrap/less/carousel.less";
+
+// Utility classes
+@import "../../bower_components/bootstrap/less/utilities.less";
+@import "../../bower_components/bootstrap/less/responsive-utilities.less";
+
+// Overrides 
+@body-bg: #f0f9fc;
+
+@font-size-base: 14px;
+
+@font-size-h1:            floor((@font-size-base * 2.3)); 
+@font-size-h2:            floor((@font-size-base * 1.8)); 
+@font-size-h3:            ceil((@font-size-base * 1.6)); 
+@font-size-h4:            ceil((@font-size-base * 1.25)); 
+@font-size-h5:            @font-size-base;
+@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
+
+@border-radius-base: 1px;
+@border-radius-large: 2px;
+@border-radius-small: 0;
+
+@navbar-default-color:             #fff;
+@navbar-default-bg:                #b33;
+@navbar-default-border:            darken(@navbar-default-bg, 20%);
+
+@navbar-default-link-color:                #fff;
+@navbar-default-link-hover-color:          #fcc;
+@navbar-default-link-hover-bg:             transparent;
+@navbar-default-link-active-color:         #fff;
+@navbar-default-link-active-bg:            darken(@navbar-default-bg, 6.5%);
+@navbar-default-link-disabled-color:       #ccc;
+@navbar-default-link-disabled-bg:          transparent;
+
+// Navbar brand label
+@navbar-default-brand-color:               @navbar-default-link-color;
+@navbar-default-brand-hover-color:         @navbar-default-link-hover-color;
+@navbar-default-brand-hover-bg:            transparent;
+
+// Navbar toggle
+@navbar-default-toggle-hover-bg:           darken(@navbar-default-bg, 6.5%);
+@navbar-default-toggle-icon-bar-bg:        #eee;
+@navbar-default-toggle-border-color:       #fff;
+
+@font-family-sans-serif:  "Open Sans", Helvetica, Arial, sans-serif;

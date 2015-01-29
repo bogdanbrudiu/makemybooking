@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-6">
+    <h2>{{ 'user.CreateNew' | translate }}</h2>
+
+    <form role="form" name="form">
+     
+      <div class="form-group">
+        <label for="displayName">{{ 'user.DisplayName' | translate }}</label>
+        <input type="text" class="form-control" id="displayName" placeholder="{{ 'user.DisplayName' | translate }}" ng-model="newUser.displayName">
+      </div>
+
+      <div class="form-group">
+        <label for="email">{{ 'user.Email' | translate }}</label>
+        <input type="text" class="form-control" id="email" placeholder="{{ 'user.Email' | translate }}" ng-model="newUser.email">
+      </div>
+
+
+      <div class="form-group">
+        <label for="provider">{{ 'user.Provider' | translate }}</label>
+        <input type="text" class="form-control" id="provider" placeholder="{{ 'user.Provider' | translate }}" ng-model="newUser.provider">
+      </div>
+
+      <div class="form-group">
+        <label for="password">{{ 'user.Password' | translate }}</label>
+        <input type="password" class="form-control" id="password" placeholder="{{ 'user.Password' | translate }}" ng-model="newUser.password">
+      </div>
+
+      <button type="submit" class="btn btn-default" ng-click="createUser()" ng-disabled="form.$invalid">{{ 'common.Create' | translate }}</button>
+    </form>
+
+  </div>
+  <div class="col-md-6">
+    <h2>{{ 'user.Users' | translate }}</h2>
+    <p ng-if="users.length === 0">-- {{ 'common.None' | translate }} --</p>
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="user in users">
+        <div>
+          <div class="dropdown">
+            <a href="" class="pull-right" ng-click="removeUser(user)" title="{{ 'common.Remove' | translate }}"><span class="glyphicon glyphicon-remove"></span></a>
+          </div>
+        </div>
+        <h4 class="list-group-item-heading">{{user.displayName}} <small>{{user.provider}}</small></h4>
+        <p class="list-group-item-text">{{user.email}}</p>   
+	<p class="list-group-item-text">{{user.roles.join(', ')}}</p>   
+      </li>
+    </ul>
+  </div>
+</div>

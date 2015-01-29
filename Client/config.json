@@ -1,0 +1,9 @@
+{
+  "name": "makemybooking.config",
+  "deps": [],
+  "constants": {
+  	"config": {
+      "defaultApiEndpoint": "http://localhost:3000"
+  	}
+  }
+}

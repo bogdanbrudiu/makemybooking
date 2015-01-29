@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-6">
+    <h2>{{ 'resource.CreateNew' | translate }}</h2>
+
+    <form role="form" name="form">
+     
+      <div class="form-group">
+        <label for="displayName">{{ 'resource.DisplayName' | translate }}</label>
+        <input type="text" class="form-control" id="displayName" placeholder="{{ 'resource.DisplayName' | translate }}" ng-model="newResource.displayName">
+      </div>
+      <button type="submit" class="btn btn-default" ng-click="createResource()" ng-disabled="form.$invalid">{{ 'common.Create' | translate }}</button>
+    </form>
+
+  </div>
+  <div class="col-md-6">
+    <h2>{{ 'resource.Resources' | translate }}</h2>
+    <p ng-if="resources.length === 0">-- {{ 'common.None' | translate }} --</p>
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="resource in resources">
+        <div>
+          <div class="dropdown">
+            <a href="" class="pull-right" ng-click="removeResource(resource)" title="{{ 'common.Remove' | translate }}"><span class="glyphicon glyphicon-remove"></span></a>
+          </div>
+        </div>
+        <h4 class="list-group-item-heading">{{resource.displayName}}</h4>
+      
+      </li>
+    </ul>
+  </div>
+</div>

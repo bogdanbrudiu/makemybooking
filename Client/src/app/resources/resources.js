@@ -1,0 +1,63 @@
+angular.module('appoints.resources', [
+  'ngRoute',
+  'appoints.api'
+])
+
+.config(function config($routeProvider) {
+  $routeProvider
+    .when('/resources', {
+      templateUrl: 'resources/resources.html',
+      controller: 'ResourcesCtrl',
+      title: 'Resources'
+    });
+})
+
+.controller('ResourcesCtrl', function ResourcesController($scope, $window, _, $translate, appointsapi, flash) {
+
+  function load() {
+    return appointsapi.apiRoot.then(function (rootResource) {
+      return rootResource.$get('resources').then(function (resourcesResource) { 
+        return resourcesResource.$get('resources').then(function(resources) { // get embedded resources
+	  $scope.resources=resources;
+        });
+      }, function (err) {
+        flash.addError(err.data);
+      });
+    });
+  }
+
+  function initResource() {
+    $scope.newResource = {
+      displayName: ''
+    };
+  }
+
+
+  $scope.createResource = function () {
+    return appointsapi.apiRoot.then(function (rootResource) {
+      return rootResource.$post('resources', null, $scope.newResource).then(function () {
+        flash.add('Resource created successfully', 'info');
+        initResource();
+      }, function (err) {
+        flash.addError(err.data);
+      });
+    })
+    .then(load);
+  };
+
+  $scope.removeResource = function (resourceResource) {
+    if ($window.confirm($translate.instant('common.AreYouSure'))) {
+      return resourceResource.$del('self').then(function (result) {
+        flash.add(result.message);
+      }, function (err) {
+        flash.addError(err.data);
+      }).then(load);
+    }
+  };
+
+
+
+  initResource();
+  load();
+  
+});

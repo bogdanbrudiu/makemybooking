@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html ng-app="appoints" ng-controller="AppCtrl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <title ng-bind-template="{{pageTitle}} | {{ 'home.appName' | translate }}"></title>
+    <!-- inject:vendor:css -->
+    <link rel="stylesheet" href="/angular-bootstrap-datetimepicker/src/css/datetimepicker.css">
+    <!-- endinject -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/css/app.css">
+    <!-- endinject -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <header class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="#/" class="navbar-brand">{{ 'home.appName' | translate }}</a>
+        </div>
+        <nav class="collapse navbar-collapse" role="navigation">
+          <ul class="nav navbar-nav">
+            <li ng-class="{active: routeIs('/appointments')}" ng-show='user.isCustomer()'><a href="#/appointments" translate>{{ 'home.Appointments' | translate }}</a></li>
+	    <li ng-class="{active: routeIs('/resources')}" ng-show='user.isCustomer()'><a href="#/resources" translate>{{ 'home.Resources' | translate }}</a></li>
+            <li ng-class="{active: routeIs('/clients')}" ng-show='user.isCustomer()'><a href="#/clients" translate>{{ 'home.Clients' | translate }}</a></li>
+	    <li ng-class="{active: routeIs('/users')}" ng-show='user.isAdmin()'><a href="#/users" translate>{{ 'home.Users' | translate }}</a></li>
+          </ul>
+	  <ul class="nav navbar-nav navbar-right">
+          	<li class="dropdown">
+           		<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+				<div ng-if="langKey == 'en'">{{ 'languageNames.en' | translate }} <span class="caret"></span></div>
+				<div ng-if="langKey == 'ro'">{{ 'languageNames.ro' | translate }} <span class="caret"></span></div>
+	   		</a>
+           		<ul class="dropdown-menu" role="menu">
+            			<li><a ng-click="changeLanguage('en')">{{ 'languageNames.en' | translate }}</a></li>
+            			<li><a ng-click="changeLanguage('ro')">{{ 'languageNames.ro' | translate }}</a></li>
+           		</ul>
+           	</li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right" ng-show="!user.isAuthenticated">
+            <li ng-class="{ active: routeIs('/login') }">
+              <a href="#/login">{{ 'home.Login' | translate }}</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right" ng-show="user.isAuthenticated">
+            <li class="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <span ng-bind="user.displayName"></span> <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="" ng-click="logout()">{{ 'home.Logout' | translate }}</a></li>
+              </ul>
+            </li>
+          </ul>
+ 	
+        </nav>
+      </div>
+    </header>
+    <div class="container" ap-hide-flash>
+      <ng-include src="'shared/flash.html'"></ng-include>
+      <ng-view></ng-view>
+    </div>
+    <!-- inject:vendor:js -->
+    <script src="/jquery/dist/jquery.js"></script>
+    <script src="/angular/angular.js"></script>
+    <script src="/angular-route/angular-route.js"></script>
+    <script src="/rfc6570/rfc6570.js"></script>
+    <script src="/lodash/dist/lodash.compat.js"></script>
+    <script src="/moment/moment.js"></script>
+    <script src="/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+    <script src="/angular-translate/angular-translate.js"></script>
+    <script src="/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+    <script src="/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/angular-hal/angular-hal.js"></script>
+    <!-- endinject -->
+    <!-- inject:js -->
+    <script src="/appoints-client-templates.js"></script>
+    <script src="/config.js"></script>
+    <script src="/i18n/angular-locale_en.js"></script>
+    <script src="/i18n/angular-locale_ro.js"></script>
+    <script src="/shared/directives.js"></script>
+    <script src="/shared/flash.js"></script>
+    <script src="/home/home.js"></script>
+    <script src="/shared/appointsapi.js"></script>
+    <script src="/appointments/appointments.js"></script>
+    <script src="/auth/usersession.js"></script>
+    <script src="/clients/clients.js"></script>
+    <script src="/resources/resources.js"></script>
+    <script src="/users/users.js"></script>
+    <script src="/auth/authinterceptor.js"></script>
+    <script src="/auth/login.js"></script>
+    <script src="/app.js"></script>
+    <!-- endinject -->
+  </body>
+</html>

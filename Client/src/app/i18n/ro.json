@@ -1,0 +1,55 @@
+﻿{
+    "languageNames": {
+        "en": "Engleză",
+        "ro": "Română"
+    },
+    "home": {
+        "appName": "MakeMyBooking.co",
+  	"Appointments": "Programări",
+        "Resources": "Resurse",
+        "Clients": "Clienţi",
+        "Users": "Utilizatori",
+        "Login": "Autentificare",
+        "Logout": "Deconectare"
+    }, 
+    "common": {
+        "Create": "Crează",
+  	"Remove": "Sterge",
+        "None": "Lista goală",
+	"AreYouSure": "Sunteţi sigur?"
+    },
+   "resource": {
+	"CreateNew": "Crează o resursa nouă",
+        "DisplayName": "Nume",
+        "Resources": "Resurse"
+    },
+   "client": {
+	"CreateNew": "Crează un client nou",
+        "DisplayName": "Nume",
+	"Phone": "Telefon",
+        "Clients": "Clienţi"
+    },
+   "user": {
+	"Users": "Utilizatori",
+	"CreateNew": "Crează un utilizator nou",
+        "DisplayName": "Nume",
+	"Email": "Email",
+        "Provider": "Furnizor",
+	"Password": "Parola"
+    },
+   "appointment": {
+	"Upcoming": "Programări următoare",
+	"Past": "Programări trecute",
+	"CreateNew": "Crează o programare nouă",
+	"Reschedule": "Reprogramează",
+	"DisplayName": "Introduceţi descrierea programarii",
+	"DateTime": "Ziua şi ora programarii",
+        "Duration": "Durată",
+	"Client": "Client",
+        "Resource": "Resursă",
+	"PickClient": "Alege un client",
+        "PickResource": "Alege o resursă",
+        "Minutes": "minute",
+	"Remarks": "Remarci"
+    }
+}
