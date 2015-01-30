@@ -17,6 +17,8 @@ passportConfig.configure();
 
 var frontent=false;
 var webapp = null;
+
+fs.existsSync = fs.existsSync || require('path').existsSync; //fix openshift problems
 if (fs.existsSync(__dirname + "/public")) { 
 	console.log('We have frontent!');
 	frontent=true;
@@ -39,14 +41,14 @@ var routes = require('./routes');
 app.use('/', routes.router);
 
 function start () {
-  var port = process.env.PORT || 3000;
-  var webport = process.env.WEBPORT || 3001;
+  var webport = config.settings.frontendPort;
+  var port = config.settings.backendPort;
   
-  app.listen(port);
+  app.listen(port, config.settings.server_ip_address);
   console.log('Appoints service started on port ' + port);
  
   if(frontent){
-  	webapp.listen(webport);
+  	webapp.listen(webport, config.settings.server_ip_address);
   	console.log('Appoints webpage started on port ' + webport);
   }
 }

@@ -1,7 +1,5 @@
-// This is an example configuration file. Rename this file to development.js
-// and set the values to get going.
 var server_frontend_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
-var server_backend_port = process.env.OPENSHIFT_NODEJS_PORT2 || 8090;
+var server_backend_port = process.env.OPENSHIFT_NODEJS_PORT_BACKEND || 8090;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 
@@ -13,18 +11,33 @@ var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 
 
-mongodb_connection_string = 'mongodb://'+mongodb_user+':'+mongodb_pass+'@'+ mongodb_host+':'+mongodb_port+'/' + db_name;
+var mongodb_connection_string = 'mongodb://'+mongodb_user+':'+mongodb_pass+'@'+ mongodb_host+':'+mongodb_port+'/' + mongodb_db;
 
 
 var settings = {
   db: {
     connectionString: mongodb_connection_string
   }, 
+  authProviders: {
+    facebook: { 
+      clientId: 'your client id here', 
+      clientSecret: 'your client secret here', 
+      callbackUrl: 'http://localhost:3000/auth/facebook/callback' 
+    },
+    google: { 
+      clientId: 'your client id here', 
+      clientSecret: 'your client secret here', 
+      callbackUrl: 'http://localhost:3000/auth/google/callback' 
+    }
+  },
   tokenSecret: 'my super duper shared secret',
   cors: {
     origin: "http://"+server_ip_address+":"+server_frontend_port,
     methods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD" ]
-  }
+  },
+  frontendPort: server_frontend_port,
+  backendPort: server_backend_port,
+  server_ip_address: server_ip_address
 };
 
 
