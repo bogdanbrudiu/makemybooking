@@ -19,8 +19,8 @@ var settings = {
     origin: "http://"+process.env.IP+":3001",
     methods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD" ]
   },
-  frontendPort: 3001,
-  backendPort: 3000
+  port: process.env.PORT,
+  server_ip_address: process.env.IP
 };
 
 exports.settings = settings;

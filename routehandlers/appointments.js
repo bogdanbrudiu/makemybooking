@@ -3,8 +3,8 @@ var Appointment = require('../models/appointment');
 function mapAppointment(dbAppointment) {
   var halAppointment = {
     _links: {
-      self: { href: '/appointments/' + dbAppointment.id },
-      user: { href: '/users/' + dbAppointment.user.id, title: dbAppointment.user.displayName }
+      self: { href: '/api/appointments/' + dbAppointment.id },
+      user: { href: '/api/users/' + dbAppointment.user.id, title: dbAppointment.user.displayName }
     },
     id: dbAppointment.id,
     title: dbAppointment.title,
@@ -14,10 +14,10 @@ function mapAppointment(dbAppointment) {
     remarks: dbAppointment.remarks
   };
   if(dbAppointment.resource){
-	  halAppointment._links.resource = { href: '/resources/' + dbAppointment.resource.id, title: dbAppointment.resource.displayName };
+	  halAppointment._links.resource = { href: '/api/resources/' + dbAppointment.resource.id, title: dbAppointment.resource.displayName };
   }
   if(dbAppointment.client){
-	  halAppointment._links.client = { href: '/clients/' + dbAppointment.client.id, title: dbAppointment.client.displayName };
+	  halAppointment._links.client = { href: '/api/clients/' + dbAppointment.client.id, title: dbAppointment.client.displayName };
   }
   return halAppointment;
 }
@@ -36,7 +36,7 @@ exports.create = function (req, res) {
       }
       return;
     }
-    res.set('Location', '/appointments/' + savedAppointment.id);
+    res.set('Location', '/api/appointments/' + savedAppointment.id);
     res.status(201).send(mapAppointment(savedAppointment));
   });
 };
@@ -59,7 +59,7 @@ exports.getById = function (req, res) {
 exports.getByUser = function (req, res) {
   var result = {
     _links: {
-      self: { href: '/appointments' }
+      self: { href: '/api/appointments' }
     },
     _embedded: {
       appointments: []

@@ -19,8 +19,8 @@ var settings = {
     origin: "http://localhost:3001",
     methods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD" ]
   },
-  frontendPort: 3001,
-  backendPort: 3000
+  port: 3000,
+  server_ip_address: '127.0.0.1'
 };
 
 exports.settings = settings;

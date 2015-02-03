@@ -4,11 +4,11 @@ var request = require('supertest');
 var app = require('../server').app;
 
 describe('Basic route tests', function () {
-  describe('GET /', function () {
+  describe('GET /api/', function () {
    
     it('returns a json response with message, details and a links collection', function (done) {
       request(app)
-        .get('/')
+        .get('/api/')
         .set('Accept', 'application/json')
         .expect(200)
         .expect('Content-Type', /json/)
@@ -23,11 +23,11 @@ describe('Basic route tests', function () {
 
   });
 
-  describe('GET /me (without authorization header)', function () {
+  describe('GET /api/me (without authorization header)', function () {
 
     it('returns a 401 response with message, details and a links collection ', function (done) {
       request(app)
-        .get('/me')
+        .get('/api/me')
         .set('Accept', 'application/json')
         .expect(401)
         .end(function (err, res) {

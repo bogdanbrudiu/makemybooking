@@ -2,7 +2,7 @@ module.exports = function (req, res) {
   var user = req.user;
   var result = {
     _links: {
-      self: { href: '/users/' + user.id }
+      self: { href: '/api/users/' + user.id }
     },
     userId: user.userId,
     provider: user.provider,

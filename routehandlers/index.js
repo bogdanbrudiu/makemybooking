@@ -3,13 +3,13 @@ exports.index = function(req, res){
     message: 'Appoints service API',
     details: 'This is a REST api where you can schedule appointments for <insert business here>',
     _links: {
-      self: { href: '/' },
-      me: { href: '/me' },
-      appointments: { href: '/appointments' },
-      users: { href: '/users' },
-      resources: { href: '/resources' },
-      clients: { href: '/clients' },
-      localauth: { href: '/auth/local?username={username}&password={password}', 'templated': true }
+      self: { href: '/api/' },
+      me: { href: '/api/me' },
+      appointments: { href: '/api/appointments' },
+      users: { href: '/api/users' },
+      resources: { href: '/api/resources' },
+      clients: { href: '/api/clients' },
+      localauth: { href: '/api/auth/local?username={username}&password={password}', 'templated': true }
     }
   })
 };

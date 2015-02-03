@@ -10,7 +10,10 @@ var fs = require('fs');
 var mediaTypes = [
   { contentType: 'application/hal+json' },
   { contentType: 'application/json' },
-  { contentType: 'text/html' }
+  { contentType: 'text/html' },
+  { contentType: 'text/css' },
+  { contentType: 'application/javascript' }
+ 
 ];
 
 passportConfig.configure();
@@ -22,9 +25,6 @@ fs.existsSync = fs.existsSync || require('path').existsSync; //fix openshift pro
 if (fs.existsSync(__dirname + "/public")) { 
 	console.log('We have frontent!');
 	frontent=true;
-	webapp = express();
-	webapp.use(express.static(__dirname + "/public"));
-
 }
 
 
@@ -38,18 +38,18 @@ app.use(leisure.accept(mediaTypes));
 app.use(passport.initialize());
 
 var routes = require('./routes');
-app.use('/', routes.router);
+app.use('/api/', routes.router);
 
 function start () {
-  var webport = config.settings.frontendPort;
-  var port = config.settings.backendPort;
+  var port = config.settings.port;
   
-  app.listen(port, config.settings.server_ip_address);
+  app.listen(port);//, config.settings.server_ip_address);
   console.log('Appoints service started on port ' + port);
  
   if(frontent){
-  	webapp.listen(webport, config.settings.server_ip_address);
-  	console.log('Appoints webpage started on port ' + webport);
+
+	app.use(express.static(__dirname + "/public"));
+
   }
 }
 

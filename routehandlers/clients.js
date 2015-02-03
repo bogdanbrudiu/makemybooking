@@ -3,8 +3,8 @@ var Client = require('../models/client');
 function mapClient(dbClient) {
   var halClient = {
     _links: {
-      self: { href: '/clients/' + dbClient.id },
-      user: { href: '/users/' + dbClient.user.id, title: dbClient.user.displayName }
+      self: { href: '/api/clients/' + dbClient.id },
+      user: { href: '/api/users/' + dbClient.user.id, title: dbClient.user.displayName }
     },
     id: dbClient.id,
     displayName: dbClient.displayName,
@@ -30,7 +30,7 @@ exports.create = function (req, res) {
       }
       return;
     }
-    res.set('Location', '/clients/' + savedClient.id);
+    res.set('Location', '/api/clients/' + savedClient.id);
     res.status(201).send(mapClient(savedClient));
   });
 };
@@ -53,7 +53,7 @@ exports.getById = function (req, res) {
 exports.getByUser = function (req, res) {
   var result = {
     _links: {
-      self: { href: '/clients' }
+      self: { href: '/api/clients' }
     },
     _embedded: {
       clients: []
