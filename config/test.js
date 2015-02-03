@@ -16,7 +16,7 @@ var settings = {
   },
   tokenSecret: 'my super duper shared secret',
   cors: {
-    origin: "http://localhost:3001",
+    origin: "http://localhost:3000",
     methods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD" ]
   },
   port: 3000,

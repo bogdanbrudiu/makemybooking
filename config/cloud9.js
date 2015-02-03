@@ -16,7 +16,7 @@ var settings = {
   },
   tokenSecret: 'test token secret',
   cors: {
-    origin: "http://"+process.env.IP+":3001",
+    origin: "http://"+process.env.IP+":"+process.env.PORT,
     methods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD" ]
   },
   port: process.env.PORT,

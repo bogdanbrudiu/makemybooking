@@ -31,7 +31,7 @@ var settings = {
   },
   tokenSecret: 'my super duper shared secret',
   cors: {
-    origin: "http://"+server_ip_address+":"+server_frontend_port,
+    origin: "http://"+server_ip_address+":"+server_port,
     methods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD" ]
   },
   port: server_port,
