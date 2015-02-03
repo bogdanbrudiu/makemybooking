@@ -27,11 +27,11 @@ describe(
 
 			});
 
-			describe('GET /auth/facebook', function() {
+			describe('GET /api/auth/facebook', function() {
 
 				it('returns a 302 redirect to facebook for authentication',
 						function(done) {
-							request(app).get('/auth/facebook').expect(302).end(
+							request(app).get('/api/auth/facebook').expect(302).end(
 									function(err, res) {
 										should.not.exist(err);
 										res.header.location.should
@@ -42,11 +42,11 @@ describe(
 
 			});
 
-			describe('GET /auth/google', function() {
+			describe('GET /api/auth/google', function() {
 
 				it('returns a 302 redirect to google for authentication',
 						function(done) {
-							request(app).get('/auth/google').expect(302).end(
+							request(app).get('/api/auth/google').expect(302).end(
 									function(err, res) {
 										should.not.exist(err);
 										res.header.location.should
@@ -57,11 +57,11 @@ describe(
 
 			});
 /*
-			describe('POST /auth/local', function() {
+			describe('POST /api/auth/local', function() {
 
 				it('returns a 401 when an invalid local user/pass are sent',
 						function(done) {
-							request(app).post('/auth/local').set('Accept',
+							request(app).post('/api/auth/local').set('Accept',
 									'application/json').send({
 								username : 'an invalid username',
 								password : 'an invalid password'
@@ -73,11 +73,11 @@ describe(
 
 			});
 */
-			describe('GET /auth/local', function() {
+			describe('GET /api/auth/local', function() {
 
 				it('returns a 401 when an invalid local user/pass are sent',
 						function(done) {
-							request(app).get('/auth/local').send({
+							request(app).get('/api/auth/local').send({
 								username : 'an invalid username',
 								password : 'an invalid password'
 							}).expect(401).end(function(err, res) {
@@ -101,10 +101,10 @@ describe(
 
 			});
 /*
-			describe('POST /auth/local', function() {
+			describe('POST /api/auth/local', function() {
 				it('returns a 200 when an valid local user/pass are sent',
 						function(done) {
-							request(app).post('/auth/local').set('Accept',
+							request(app).post('/api/auth/local').set('Accept',
 									'application/json').send({
 								username : 'validusername',
 								password : 'validpassword'
@@ -116,10 +116,10 @@ describe(
 
 			});
 */
-			describe('GET /auth/local', function() {
+			describe('GET /api/auth/local', function() {
 				it('returns a 200 when an valid local user/pass are sent',
 						function(done) {
-							request(app).get('/auth/local').send({
+							request(app).get('/api/auth/local').send({
 								username : 'validusername',
 								password : 'validpassword'
 							}).expect(200).end(function(err, res) {
@@ -129,11 +129,11 @@ describe(
 						});
 
 			});
-			describe('POST /auth/facebook', function() {
+			describe('POST /api/auth/facebook', function() {
 
 				it('returns a 401 when an invalid facebook token is sent',
 						function(done) {
-							request(app).post('/auth/facebook').set('Accept',
+							request(app).post('/api/auth/facebook').set('Accept',
 									'application/json').send({
 								token : 'an invalid token'
 							}).expect(401).end(
@@ -147,11 +147,11 @@ describe(
 
 			});
 
-			describe('POST /auth/google', function() {
+			describe('POST /api/auth/google', function() {
 
 				it('returns a 401 when an invalid google token is sent',
 						function(done) {
-							request(app).post('/auth/google').set('Accept',
+							request(app).post('/api/auth/google').set('Accept',
 									'application/json').send({
 								token : 'an invalid token'
 							}).expect(401).end(
@@ -166,7 +166,7 @@ describe(
 			});
 
 			describe(
-					'GET /me',
+					'GET /api/me',
 					function() {
 						 var user = {};
 
@@ -183,7 +183,7 @@ describe(
 								'returns a 401 response when no authorization header is set',
 								function(done) {
 									request(app)
-											.get('/me')
+											.get('/api/me')
 											.set('Accept', 'application/json')
 											.expect(401)
 											.end(
@@ -199,7 +199,7 @@ describe(
 								'returns a 401 response when an invalid header is set',
 								function(done) {
 									request(app)
-											.get('/me')
+											.get('/api/me')
 											.set('Accept', 'application/json')
 											.set('authorization', 'blahblah')
 											.expect(401)
@@ -216,7 +216,7 @@ describe(
 								'returns a 401 response when an invalid authorization token is set',
 								function(done) {
 									request(app)
-											.get('/me')
+											.get('/api/me')
 											.set('Accept', 'application/json')
 											.set('authorization',
 													'Bearer blahblah')
@@ -237,7 +237,7 @@ describe(
 											.createTokenForUser(user, -1);
 
 									request(app)
-											.get('/me')
+											.get('/api/me')
 											.set('Accept', 'application/json')
 											.set('authorization',
 													'Bearer ' + expiredToken)
@@ -258,7 +258,7 @@ describe(
 											user, 60);
 
 									request(app)
-											.get('/me')
+											.get('/api/me')
 											.set('Accept', 'application/json')
 											.set('authorization',
 													'Bearer ' + token)

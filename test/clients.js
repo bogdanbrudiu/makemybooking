@@ -47,7 +47,7 @@ describe('Client tests', function () {
     });
   });
 
-  describe('GET /clients', function () {
+  describe('GET /api/clients', function () {
     
     beforeEach(function (done) {  
 
@@ -81,7 +81,7 @@ describe('Client tests', function () {
 
     it('returns a 401 when not authenticated', function (done) {
       request(app)
-        .get('/clients')
+        .get('/api/clients')
         .expect(401)
         .end(function (err, res) {
           should.not.exist(err);
@@ -91,7 +91,7 @@ describe('Client tests', function () {
 
     it('returns a 200 with an list of clients.', function (done) {
       request(app)
-        .get('/clients')
+        .get('/api/clients')
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .expect(200)
@@ -106,7 +106,7 @@ describe('Client tests', function () {
 
   });
 
-  describe('POST /clients', function () {
+  describe('POST /api/clients', function () {
 
     var testClient = {
     		displayName: 'Popescu',
@@ -115,7 +115,7 @@ describe('Client tests', function () {
 
     it('returns a 401 when not authenticated', function (done) {
       request(app)
-        .post('/clients')
+        .post('/api/clients')
         .send(testClient)
         .expect(401)
         .end(function (err, res) {
@@ -126,7 +126,7 @@ describe('Client tests', function () {
 
     it('returns a 201 with location header set when a proper client is sent', function (done) {
       request(app)
-        .post('/clients')
+        .post('/api/clients')
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .send(testClient)
@@ -134,14 +134,14 @@ describe('Client tests', function () {
         .end(function (err, res) {
           should.not.exist(err);
           res.body.displayName.should.equal('Popescu');
-          res.header.location.should.startWith('/clients');
+          res.header.location.should.startWith('/api/clients');
           done();
         });
     });
 
     it('returns a 422 when an invalid client is sent', function (done) {
       request(app)
-        .post('/clients')
+        .post('/api/clients')
         .set('authorization', 'Bearer ' + token)
         .send({ title: 'Invalid client without some required properties.' } )
         .expect(422)
@@ -152,7 +152,7 @@ describe('Client tests', function () {
     });
   });
 
-  describe('PUT /clients/:id', function () {
+  describe('PUT /api/clients/:id', function () {
     var existingClient = null;
     beforeEach(function (done) {
  // Create one client in the database that is to be updated. 
@@ -182,7 +182,7 @@ describe('Client tests', function () {
 
     it('returns a 401 response when not authenticated', function (done) {
       request(app)
-        .put('/clients/' + existingClient.id)
+        .put('/api/clients/' + existingClient.id)
         .send(existingClient)
         .expect(401)
         .end(function (err, res) {
@@ -193,7 +193,7 @@ describe('Client tests', function () {
 
     it('returns a 404 response when the client is not found', function (done) {
       request(app)
-        .put('/clients/537e0a6795e2ee32ab736b1a') // bogus identifier
+        .put('/api/clients/537e0a6795e2ee32ab736b1a') // bogus identifier
         .set('authorization', 'Bearer ' + token)
         .send(existingClient)
         .expect(404)
@@ -208,7 +208,7 @@ describe('Client tests', function () {
     it('returns a 200 response with the updated client', function (done) {
     	existingClient.displayName="new name";
       request(app)
-        .put('/clients/' + existingClient.id)
+        .put('/api/clients/' + existingClient.id)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .send(existingClient)
@@ -222,7 +222,7 @@ describe('Client tests', function () {
 
   });
 
-  describe('PATCH /clients/:id', function () {
+  describe('PATCH /api/clients/:id', function () {
     var existingClientId  = null;
    
     beforeEach(function (done) {
@@ -247,7 +247,7 @@ describe('Client tests', function () {
 
     it('returns a 401 response when not authenticated', function (done) {
       request(app)
-        .patch('/clients/' + existingClientId)
+        .patch('/api/clients/' + existingClientId)
         .send({ displayName: "new display name" })
         .expect(401)
         .end(function (err, res) {
@@ -258,7 +258,7 @@ describe('Client tests', function () {
 
     it('returns a 404 response when the client is not found', function (done) {
       request(app)
-        .patch('/clients/537e0a6795e2ee32ab736b1a') // bogus identifier
+        .patch('/api/clients/537e0a6795e2ee32ab736b1a') // bogus identifier
         .set('authorization', 'Bearer ' + token)
         .send({ displayName: "new display name", phone: "phone" })
         .expect(404)
@@ -270,7 +270,7 @@ describe('Client tests', function () {
 
     it('returns a 422 response when updating with invalid data', function (done) {
       request(app)
-        .patch('/clients/' + existingClientId)
+        .patch('/api/clients/' + existingClientId)
         .set('authorization', 'Bearer ' + token)
         .send({ user:{id:''} })
         .expect(422)
@@ -282,7 +282,7 @@ describe('Client tests', function () {
 
     it('returns a 200 response with the updated client', function (done) {
       request(app)
-        .patch('/clients/' + existingClientId)
+        .patch('/api/clients/' + existingClientId)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .send({ displayName: "new display name", phone: "new phone" })
@@ -297,7 +297,7 @@ describe('Client tests', function () {
 
     it('returns a 200 response with the updated and sanitized client', function (done) {
       request(app)
-        .patch('/clients/' + existingClientId)
+        .patch('/api/clients/' + existingClientId)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .send({ displayName: '<script>alert("p0wned");</script> content that should not be cleaned' })
@@ -311,7 +311,7 @@ describe('Client tests', function () {
 
   });
 
-  describe('DELETE /clients/:id', function () {
+  describe('DELETE /api/clients/:id', function () {
     var existingClientId = null;
 
     beforeEach(function (done) {
@@ -336,7 +336,7 @@ describe('Client tests', function () {
 
     it('returns a 401 response when not authenticated', function (done) {
       request(app)
-        .delete('/clients/' + existingClientId)
+        .delete('/api/clients/' + existingClientId)
         .expect(401)
         .end(function (err, res) {
           should.not.exist(err);
@@ -346,7 +346,7 @@ describe('Client tests', function () {
 
     it('returns a 404 response when the client is not found', function (done) {
       request(app)
-        .delete('/clients/537e0a6795e2ee32ab736b1a') // bogus identifier
+        .delete('/api/clients/537e0a6795e2ee32ab736b1a') // bogus identifier
         .set('authorization', 'Bearer ' + token)
         .expect(404)
         .end(function (err, res) {
@@ -357,7 +357,7 @@ describe('Client tests', function () {
 
     it('returns a 200 response with a confirmation message when successful', function (done) {
       request(app)
-        .delete('/clients/' + existingClientId)
+        .delete('/api/clients/' + existingClientId)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .expect(200)

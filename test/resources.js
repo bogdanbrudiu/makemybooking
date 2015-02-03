@@ -47,7 +47,7 @@ describe('Resource tests', function () {
     });
   });
 
-  describe('GET /resources', function () {
+  describe('GET /api/resources', function () {
     
     beforeEach(function (done) {  
 
@@ -79,7 +79,7 @@ describe('Resource tests', function () {
 
     it('returns a 401 when not authenticated', function (done) {
       request(app)
-        .get('/resources')
+        .get('/api/resources')
         .expect(401)
         .end(function (err, res) {
           should.not.exist(err);
@@ -89,7 +89,7 @@ describe('Resource tests', function () {
 
     it('returns a 200 with an list of resources.', function (done) {
       request(app)
-        .get('/resources')
+        .get('/api/resources')
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .expect(200)
@@ -104,7 +104,7 @@ describe('Resource tests', function () {
 
   });
 
-  describe('POST /resources', function () {
+  describe('POST /api/resources', function () {
 
     var testResource = {
     		displayName: 'Regular full massage'
@@ -112,7 +112,7 @@ describe('Resource tests', function () {
 
     it('returns a 401 when not authenticated', function (done) {
       request(app)
-        .post('/resources')
+        .post('/api/resources')
         .send(testResource)
         .expect(401)
         .end(function (err, res) {
@@ -123,7 +123,7 @@ describe('Resource tests', function () {
 
     it('returns a 201 with location header set when a proper resource is sent', function (done) {
       request(app)
-        .post('/resources')
+        .post('/api/resources')
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .send(testResource)
@@ -131,14 +131,14 @@ describe('Resource tests', function () {
         .end(function (err, res) {
           should.not.exist(err);
           res.body.displayName.should.equal('Regular full massage');
-          res.header.location.should.startWith('/resources');
+          res.header.location.should.startWith('/api/resources');
           done();
         });
     });
 
     it('returns a 422 when an invalid resource is sent', function (done) {
       request(app)
-        .post('/resources')
+        .post('/api/resources')
         .set('authorization', 'Bearer ' + token)
         .send({ title: 'Invalid resource without some required properties.' } )
         .expect(422)
@@ -149,7 +149,7 @@ describe('Resource tests', function () {
     });
   });
 
-  describe('PUT /resources/:id', function () {
+  describe('PUT /api/resources/:id', function () {
     var existingResource = null;
     beforeEach(function (done) {
  // Create one resource in the database that is to be updated. 
@@ -177,7 +177,7 @@ describe('Resource tests', function () {
 
     it('returns a 401 response when not authenticated', function (done) {
       request(app)
-        .put('/resources/' + existingResource.id)
+        .put('/api/resources/' + existingResource.id)
         .send(existingResource)
         .expect(401)
         .end(function (err, res) {
@@ -188,7 +188,7 @@ describe('Resource tests', function () {
 
     it('returns a 404 response when the resource is not found', function (done) {
       request(app)
-        .put('/resources/537e0a6795e2ee32ab736b1a') // bogus identifier
+        .put('/api/resources/537e0a6795e2ee32ab736b1a') // bogus identifier
         .set('authorization', 'Bearer ' + token)
         .send(existingResource)
         .expect(404)
@@ -203,7 +203,7 @@ describe('Resource tests', function () {
     it('returns a 200 response with the updated resource', function (done) {
     	existingResource.displayName="new name";
       request(app)
-        .put('/resources/' + existingResource.id)
+        .put('/api/resources/' + existingResource.id)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .send(existingResource)
@@ -217,7 +217,7 @@ describe('Resource tests', function () {
 
   });
 
-  describe('PATCH /resources/:id', function () {
+  describe('PATCH /api/resources/:id', function () {
     var existingResourceId  = null;
    
     beforeEach(function (done) {
@@ -241,7 +241,7 @@ describe('Resource tests', function () {
 
     it('returns a 401 response when not authenticated', function (done) {
       request(app)
-        .patch('/resources/' + existingResourceId)
+        .patch('/api/resources/' + existingResourceId)
         .send({ displayName: "new display name" })
         .expect(401)
         .end(function (err, res) {
@@ -252,7 +252,7 @@ describe('Resource tests', function () {
 
     it('returns a 404 response when the resource is not found', function (done) {
       request(app)
-        .patch('/resources/537e0a6795e2ee32ab736b1a') // bogus identifier
+        .patch('/api/resources/537e0a6795e2ee32ab736b1a') // bogus identifier
         .set('authorization', 'Bearer ' + token)
         .send({ displayName: "new display name" })
         .expect(404)
@@ -264,7 +264,7 @@ describe('Resource tests', function () {
 
     it('returns a 422 response when updating with invalid data', function (done) {
       request(app)
-        .patch('/resources/' + existingResourceId)
+        .patch('/api/resources/' + existingResourceId)
         .set('authorization', 'Bearer ' + token)
         .send({ user:{id:''} })
         .expect(422)
@@ -276,7 +276,7 @@ describe('Resource tests', function () {
 
     it('returns a 200 response with the updated resource', function (done) {
       request(app)
-        .patch('/resources/' + existingResourceId)
+        .patch('/api/resources/' + existingResourceId)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .send({ displayName: "new display name" })
@@ -290,7 +290,7 @@ describe('Resource tests', function () {
 
     it('returns a 200 response with the updated and sanitized resource', function (done) {
       request(app)
-        .patch('/resources/' + existingResourceId)
+        .patch('/api/resources/' + existingResourceId)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .send({ displayName: '<script>alert("p0wned");</script> content that should not be cleaned' })
@@ -304,7 +304,7 @@ describe('Resource tests', function () {
 
   });
 
-  describe('DELETE /resources/:id', function () {
+  describe('DELETE /api/resources/:id', function () {
     var existingResourceId = null;
 
     beforeEach(function (done) {
@@ -328,7 +328,7 @@ describe('Resource tests', function () {
 
     it('returns a 401 response when not authenticated', function (done) {
       request(app)
-        .delete('/resources/' + existingResourceId)
+        .delete('/api/resources/' + existingResourceId)
         .expect(401)
         .end(function (err, res) {
           should.not.exist(err);
@@ -338,7 +338,7 @@ describe('Resource tests', function () {
 
     it('returns a 404 response when the resource is not found', function (done) {
       request(app)
-        .delete('/resources/537e0a6795e2ee32ab736b1a') // bogus identifier
+        .delete('/api/resources/537e0a6795e2ee32ab736b1a') // bogus identifier
         .set('authorization', 'Bearer ' + token)
         .expect(404)
         .end(function (err, res) {
@@ -349,7 +349,7 @@ describe('Resource tests', function () {
 
     it('returns a 200 response with a confirmation message when successful', function (done) {
       request(app)
-        .delete('/resources/' + existingResourceId)
+        .delete('/api/resources/' + existingResourceId)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .expect(200)

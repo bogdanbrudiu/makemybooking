@@ -47,7 +47,7 @@ describe('Appointment tests', function () {
     });
   });
 
-  describe('GET /appointments', function () {
+  describe('GET /api/appointments', function () {
     
     beforeEach(function (done) {  
 
@@ -83,7 +83,7 @@ describe('Appointment tests', function () {
 
     it('returns a 401 when not authenticated', function (done) {
       request(app)
-        .get('/appointments')
+        .get('/api/appointments')
         .expect(401)
         .end(function (err, res) {
           should.not.exist(err);
@@ -93,7 +93,7 @@ describe('Appointment tests', function () {
 
     it('returns a 200 with an list of appointments ordered by date and time in descending order.', function (done) {
       request(app)
-        .get('/appointments')
+        .get('/api/appointments')
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .expect(200)
@@ -108,7 +108,7 @@ describe('Appointment tests', function () {
 
   });
 
-  describe('POST /appointments', function () {
+  describe('POST /api/appointments', function () {
 
     var testAppointment = {
       title: 'Regular full massage',
@@ -119,7 +119,7 @@ describe('Appointment tests', function () {
 
     it('returns a 401 when not authenticated', function (done) {
       request(app)
-        .post('/appointments')
+        .post('/api/appointments')
         .send(testAppointment)
         .expect(401)
         .end(function (err, res) {
@@ -130,7 +130,7 @@ describe('Appointment tests', function () {
 
     it('returns a 201 with location header set when a proper appointment is sent', function (done) {
       request(app)
-        .post('/appointments')
+        .post('/api/appointments')
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .send(testAppointment)
@@ -138,14 +138,14 @@ describe('Appointment tests', function () {
         .end(function (err, res) {
           should.not.exist(err);
           res.body.title.should.equal('Regular full massage');
-          res.header.location.should.startWith('/appointments');
+          res.header.location.should.startWith('/api/appointments');
           done();
         });
     });
 
     it('returns a 422 when an invalid appointment is sent', function (done) {
       request(app)
-        .post('/appointments')
+        .post('/api/appointments')
         .set('authorization', 'Bearer ' + token)
         .send({ title: 'Invalid appointment without some required properties.' } )
         .expect(422)
@@ -158,7 +158,7 @@ describe('Appointment tests', function () {
     it('returns a 422 when an appointment with past date is sent', function (done) {
       testAppointment.dateAndTime = dateBaseline.clone().add(-1,'days').toISOString();
       request(app)
-        .post('/appointments')
+        .post('/api/appointments')
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .send(testAppointment)
@@ -171,7 +171,7 @@ describe('Appointment tests', function () {
 
   });
 
-  describe('PUT /appointments/:id', function () {
+  describe('PUT /api/appointments/:id', function () {
     var existingAppointment = null;
     beforeEach(function (done) {
  // Create one appointment in the database that is to be updated. 
@@ -205,7 +205,7 @@ describe('Appointment tests', function () {
 
     it('returns a 401 response when not authenticated', function (done) {
       request(app)
-        .put('/appointments/' + existingAppointment.id)
+        .put('/api/appointments/' + existingAppointment.id)
         .send(existingAppointment)
         .expect(401)
         .end(function (err, res) {
@@ -216,7 +216,7 @@ describe('Appointment tests', function () {
 
     it('returns a 404 response when the appointment is not found', function (done) {
       request(app)
-        .put('/appointments/537e0a6795e2ee32ab736b1a') // bogus identifier
+        .put('/api/appointments/537e0a6795e2ee32ab736b1a') // bogus identifier
         .set('authorization', 'Bearer ' + token)
         .send(existingAppointment)
         .expect(404)
@@ -229,7 +229,7 @@ describe('Appointment tests', function () {
     it('returns a 422 response when updating with invalid data', function (done) {
       existingAppointment.dateAndTime = ''; // required field
       request(app)
-        .put('/appointments/' + existingAppointment.id)
+        .put('/api/appointments/' + existingAppointment.id)
         .set('authorization', 'Bearer ' + token)
         .send(existingAppointment)
         .expect(422)
@@ -243,7 +243,7 @@ describe('Appointment tests', function () {
       var newDateAndTime = dateBaseline.clone().add(1,'days').add(15, 'hours').add(15, 'minutes').toISOString(); // ISO date because this is the value we're going to PUT
       existingAppointment.dateAndTime =  newDateAndTime 
       request(app)
-        .put('/appointments/' + existingAppointment.id)
+        .put('/api/appointments/' + existingAppointment.id)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .send(existingAppointment)
@@ -258,7 +258,7 @@ describe('Appointment tests', function () {
 
   });
 
-  describe('PATCH /appointments/:id', function () {
+  describe('PATCH /api/appointments/:id', function () {
     var existingAppointmentId = null;
     var newAppointmentDate = dateBaseline.clone().add(2, 'days').add(13, 'hours').add(45, 'minutes').toISOString();
     var newAppointmentEndDate = dateBaseline.clone().add(2, 'days').add(14, 'hours').add(15, 'minutes').toISOString();
@@ -286,7 +286,7 @@ describe('Appointment tests', function () {
 
     it('returns a 401 response when not authenticated', function (done) {
       request(app)
-        .patch('/appointments/' + existingAppointmentId)
+        .patch('/api/appointments/' + existingAppointmentId)
         .send({ dateAndTime: newAppointmentDate }, { endDateAndTime: newAppointmentEndDate })
         .expect(401)
         .end(function (err, res) {
@@ -297,7 +297,7 @@ describe('Appointment tests', function () {
 
     it('returns a 404 response when the appointment is not found', function (done) {
       request(app)
-        .patch('/appointments/537e0a6795e2ee32ab736b1a') // bogus identifier
+        .patch('/api/appointments/537e0a6795e2ee32ab736b1a') // bogus identifier
         .set('authorization', 'Bearer ' + token)
         .send({ dateAndTime: newAppointmentDate }, { endDateAndTime: newAppointmentEndDate })
         .expect(404)
@@ -309,7 +309,7 @@ describe('Appointment tests', function () {
 
     it('returns a 422 response when updating with invalid data', function (done) {
       request(app)
-        .patch('/appointments/' + existingAppointmentId)
+        .patch('/api/appointments/' + existingAppointmentId)
         .set('authorization', 'Bearer ' + token)
         .send({ dateAndTime: '' })
         .expect(422)
@@ -321,7 +321,7 @@ describe('Appointment tests', function () {
 
     it('returns a 200 response with the updated appointment', function (done) {
       request(app)
-        .patch('/appointments/' + existingAppointmentId)
+        .patch('/api/appointments/' + existingAppointmentId)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .send({ dateAndTime: newAppointmentDate, endDateAndTime: newAppointmentEndDate })
@@ -338,7 +338,7 @@ describe('Appointment tests', function () {
 
     it('returns a 200 response with the updated and sanitized appointment', function (done) {
       request(app)
-        .patch('/appointments/' + existingAppointmentId)
+        .patch('/api/appointments/' + existingAppointmentId)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .send({ remarks: '<script>alert("p0wned");</script> content that should not be cleaned' })
@@ -353,7 +353,7 @@ describe('Appointment tests', function () {
 
   });
 
-  describe('DELETE /appointments/:id', function () {
+  describe('DELETE /api/appointments/:id', function () {
     var existingAppointmentId = null;
 
     beforeEach(function (done) {
@@ -379,7 +379,7 @@ describe('Appointment tests', function () {
 
     it('returns a 401 response when not authenticated', function (done) {
       request(app)
-        .delete('/appointments/' + existingAppointmentId)
+        .delete('/api/appointments/' + existingAppointmentId)
         .expect(401)
         .end(function (err, res) {
           should.not.exist(err);
@@ -389,7 +389,7 @@ describe('Appointment tests', function () {
 
     it('returns a 404 response when the appointment is not found', function (done) {
       request(app)
-        .delete('/appointments/537e0a6795e2ee32ab736b1a') // bogus identifier
+        .delete('/api/appointments/537e0a6795e2ee32ab736b1a') // bogus identifier
         .set('authorization', 'Bearer ' + token)
         .expect(404)
         .end(function (err, res) {
@@ -400,7 +400,7 @@ describe('Appointment tests', function () {
 
     it('returns a 200 response with a confirmation message when successful', function (done) {
       request(app)
-        .delete('/appointments/' + existingAppointmentId)
+        .delete('/api/appointments/' + existingAppointmentId)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
         .expect(200)

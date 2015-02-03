@@ -25,13 +25,13 @@ describe('usersession tests', function () {
       "message":"Appoints service API",
       "_links":{
         "self":{
-          "href":"/"
+          "href":"/api/"
         },
         "me":{
-          "href":"/me"
+          "href":"/api/me"
         },
         "appointments":{
-          "href":"/appointments"
+          "href":"/api/appointments"
         }
       }
     });
@@ -51,7 +51,7 @@ describe('usersession tests', function () {
   it('sets the current property after authenticating with a token', function (done) {
     httpBackend.when('GET', config.defaultApiEndpoint + '/me').respond({
       "_links":{
-        "self":{"href":"/users/53b156ad76c3c30000a15eb4"}
+        "self":{"href":"/api/users/53b156ad76c3c30000a15eb4"}
       },
       "userId":"1234567890",
       "provider":"test",
@@ -77,10 +77,10 @@ describe('usersession tests', function () {
       "details":"No Authorization header was found. Format is Authorization: Bearer [token]",
       "_links":{
         "auth_facebook":{
-          "href":"/auth/facebook"
+          "href":"/api/auth/facebook"
         },
         "auth_google":{
-          "href":"/auth/google"
+          "href":"/api/auth/google"
         }
       }
     });
