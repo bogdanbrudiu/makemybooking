@@ -43,7 +43,7 @@ app.use('/api/', routes.router);
 function start () {
   var port = config.settings.port;
   
-  app.listen(port);//, config.settings.server_ip_address);
+  app.listen(port, config.settings.server_ip_address);
   console.log('Appoints service started on port ' + port);
  
   if(frontent){
