@@ -42,7 +42,7 @@ app.use('/api/', routes.router);
 
 function start () {
   var port = config.settings.port;
-  
+  console.log('Appoints service starting on  '+config.settings.server_ip_address+':' + port);
   app.listen(port, config.settings.server_ip_address);
   console.log('Appoints service started on port ' + port);
  
