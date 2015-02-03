@@ -1,7 +1,7 @@
 angular.module("makemybooking.config", [])
 
 .constant("config", {
-	"defaultApiEndpoint": "http://localhost:3000"
+	"defaultApiEndpoint": "/api"
 })
 
 .constant("appName", "makemybooking-client")
@@ -274,18 +274,6 @@ try {
   module = angular.module('makemybooking-client-templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('clients/clients.html',
-    '<div class="row"><div class="col-md-6"><h2>{{ \'client.CreateNew\' | translate }}</h2><form role="form" name="form"><div class="form-group"><label for="displayName">{{ \'client.DisplayName\' | translate }}</label><input class="form-control" id="displayName" placeholder="{{ \'client.DisplayName\' | translate }}" ng-model="newClient.displayName"></div><div class="form-group"><label for="phone">{{ \'client.Phone\' | translate }}</label><input class="form-control" id="phone" placeholder="{{ \'client.Phone\' | translate }}" ng-model="newClient.phone"></div><button type="submit" class="btn btn-default" ng-click="createClient()" ng-disabled="form.$invalid">{{ \'common.Create\' | translate }}</button></form></div><div class="col-md-6"><h2>{{ \'client.Clients\' | translate }}</h2><p ng-if="clients.length === 0">-- {{ \'common.None\' | translate }} --</p><ul class="list-group"><li class="list-group-item" ng-repeat="client in clients"><div><div class="dropdown"><a href="" class="pull-right" ng-click="removeClient(client)" title="{{ \'common.Remove\' | translate }}"><span class="glyphicon glyphicon-remove"></span></a></div></div><h4 class="list-group-item-heading">{{client.displayName}} <small>{{client.phone}}</small></h4></li></ul></div></div>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('makemybooking-client-templates');
-} catch (e) {
-  module = angular.module('makemybooking-client-templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('home/home.html',
     '<footer class="pull-right">{{ \'home.appName\' | translate }} version {{version}} - &copy; 2015</footer>');
 }]);
@@ -312,6 +300,18 @@ try {
 module.run(['$templateCache', function($templateCache) {
   $templateCache.put('shared/flash.html',
     '<section ng-controller="FlashCtrl" class="flashcontainer"><div ng-repeat="flashMessage in flashMessages" ng-class="getMessageClass(flashMessage.level)"><button type="button" class="close" data-dismiss="alert" ng-click="dismiss(flashMessage)">&times;</button> {{flashMessage.message}}<ul ng-if="flashMessage.details.errors"><li ng-repeat="error in flashMessage.details.errors">{{error.message}}</li></ul></div></section>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('makemybooking-client-templates');
+} catch (e) {
+  module = angular.module('makemybooking-client-templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('clients/clients.html',
+    '<div class="row"><div class="col-md-6"><h2>{{ \'client.CreateNew\' | translate }}</h2><form role="form" name="form"><div class="form-group"><label for="displayName">{{ \'client.DisplayName\' | translate }}</label><input class="form-control" id="displayName" placeholder="{{ \'client.DisplayName\' | translate }}" ng-model="newClient.displayName"></div><div class="form-group"><label for="phone">{{ \'client.Phone\' | translate }}</label><input class="form-control" id="phone" placeholder="{{ \'client.Phone\' | translate }}" ng-model="newClient.phone"></div><button type="submit" class="btn btn-default" ng-click="createClient()" ng-disabled="form.$invalid">{{ \'common.Create\' | translate }}</button></form></div><div class="col-md-6"><h2>{{ \'client.Clients\' | translate }}</h2><p ng-if="clients.length === 0">-- {{ \'common.None\' | translate }} --</p><ul class="list-group"><li class="list-group-item" ng-repeat="client in clients"><div><div class="dropdown"><a href="" class="pull-right" ng-click="removeClient(client)" title="{{ \'common.Remove\' | translate }}"><span class="glyphicon glyphicon-remove"></span></a></div></div><h4 class="list-group-item-heading">{{client.displayName}} <small>{{client.phone}}</small></h4></li></ul></div></div>');
 }]);
 })();
 

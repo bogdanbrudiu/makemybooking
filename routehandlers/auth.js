@@ -8,11 +8,11 @@ function sendLoggedInResponseForUser (user, res) {
     message: 'Authentication successful',
     token: security.createTokenForUser(user, tokenExpiresInMinutes),
     _links: { 
-      self: { href: '/'},
-      me: { href: '/me' }, 
-      appointments: { href: '/appointments' } ,
-      resources: { href: '/resources' } ,
-      clients: { href: '/clients' } 
+      self: { href: '/api/'},
+      me: { href: '/api/me' }, 
+      appointments: { href: '/api/appointments' } ,
+      resources: { href: '/api/resources' } ,
+      clients: { href: '/api/clients' } 
     }
   });
 }
@@ -36,7 +36,7 @@ function createUserFromProfile (profile) {
 
 exports.externalcallback = function (req, res) {
   var token = security.createTokenForUser(req.user, tokenExpiresInMinutes)
-  res.redirect('/auth/loggedin/#access_token=' + token);
+  res.redirect('/api/auth/loggedin/#access_token=' + token);
 }
 
 exports.loggedin = function (req, res) {

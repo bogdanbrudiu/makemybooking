@@ -14,48 +14,48 @@ var users = require('./routehandlers/users');
 var router = express.Router();
 
 // Index
-router.get('/', index.index);
+router.get('/api/', index.index);
 
 // Me
-router.get('/me', middleware.ensureAuthenticated, me)
+router.get('/api/me', middleware.ensureAuthenticated, me)
 
   // Authentication provider routes
-router.get('/auth/local', 
+router.get('/api/auth/local', 
   passport.authenticate('local'),
   auth.localtoken
 );
 
-router.get('/auth/facebook', 
+router.get('/api/auth/facebook', 
   passport.authenticate('facebook', { scope: 'email' })
 );
 
-router.get('/auth/facebook/callback', 
+router.get('/api/auth/facebook/callback', 
   passport.authenticate('facebook', { scope: 'email' }),
   auth.externalcallback
 );
 
-router.post('/auth/facebook', auth.facebooktoken);
+router.post('/api/auth/facebook', auth.facebooktoken);
 
-router.get('/auth/google', 
+router.get('/api/auth/google', 
   passport.authenticate('google', { scope: ['openid', 'email', 'profile'] })
 );
 
-router.get('/auth/google/callback', 
+router.get('/api/auth/google/callback', 
   passport.authenticate('google', { scope: ['openid', 'email', 'profile'] }),
   auth.externalcallback
 );
 
-router.post('/auth/google', auth.googletoken);
+router.post('/api/auth/google', auth.googletoken);
 
-router.get('/auth/loggedin', auth.loggedin);
+router.get('/api/auth/loggedin', auth.loggedin);
 
 // Appointments
-router.route('/appointments')
+router.route('/api/appointments')
   .all(middleware.ensureAuthenticated)
   .get(appointments.getByUser)
   .post(middleware.sanitizeRequestBody, appointments.create);
 
-router.route('/appointments/:id')
+router.route('/api/appointments/:id')
   .all(middleware.ensureAuthenticated)
   .get(appointments.getById)
   .put(middleware.sanitizeRequestBody, appointments.update)
@@ -63,12 +63,12 @@ router.route('/appointments/:id')
   .delete(appointments.delete);
 
 //Resources
-router.route('/resources')
+router.route('/api/resources')
   .all(middleware.ensureAuthenticated)
   .get(resources.getByUser)
   .post(middleware.sanitizeRequestBody, resources.create);
 
-router.route('/resources/:id')
+router.route('/api/resources/:id')
   .all(middleware.ensureAuthenticated)
   .get(resources.getById)
   .put(middleware.sanitizeRequestBody, resources.update)
@@ -76,12 +76,12 @@ router.route('/resources/:id')
   .delete(resources.delete);
 
 //Clients
-router.route('/clients')
+router.route('/api/clients')
   .all(middleware.ensureAuthenticated)
   .get(clients.getByUser)
   .post(middleware.sanitizeRequestBody, clients.create);
 
-router.route('/clients/:id')
+router.route('/api/clients/:id')
   .all(middleware.ensureAuthenticated)
   .get(clients.getById)
   .put(middleware.sanitizeRequestBody, clients.update)
@@ -91,13 +91,13 @@ router.route('/clients/:id')
 
 
 //Users
-router.route('/users')
+router.route('/api/users')
   .all(middleware.ensureAuthenticated)
   .all(middleware.ensureIsAdmin)
   .get(users.getAll)
   .post(middleware.sanitizeRequestBody, users.create);
 
-router.route('/users/:id')
+router.route('/api/users/:id')
   .all(middleware.ensureAuthenticated)
   .all(middleware.ensureIsAdmin)
   .get(users.getById)

@@ -1,5 +1,4 @@
-var server_frontend_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
-var server_backend_port = process.env.OPENSHIFT_NODEJS_PORT_BACKEND || 8090;
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 
@@ -35,8 +34,7 @@ var settings = {
     origin: "http://"+server_ip_address+":"+server_frontend_port,
     methods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD" ]
   },
-  frontendPort: server_frontend_port,
-  backendPort: server_backend_port,
+  port: server_port,
   server_ip_address: server_ip_address
 };
 

@@ -3,7 +3,7 @@ var User = require('../models/user');
 function mapUser(dbUser) {
   var halUser = {
     _links: {
-      self: { href: '/users/' + dbUser.id }
+      self: { href: '/api/users/' + dbUser.id }
     },
     id: dbUser.id,
     displayName: dbUser.displayName,
@@ -28,7 +28,7 @@ exports.create = function (req, res) {
       }
       return;
     }
-    res.set('Location', '/users/' + savedUser.id);
+    res.set('Location', '/api/users/' + savedUser.id);
     res.status(201).send(mapUser(savedUser));
   });
 };
@@ -51,7 +51,7 @@ exports.getById = function (req, res) {
 exports.getAll = function (req, res) {
   var result = {
     _links: {
-      self: { href: '/users' }
+      self: { href: '/api/users' }
     },
     _embedded: {
       users: []

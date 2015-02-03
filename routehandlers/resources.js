@@ -3,8 +3,8 @@ var Resource = require('../models/resource');
 function mapResource(dbResource) {
   var halResource = {
     _links: {
-      self: { href: '/resources/' + dbResource.id },
-      user: { href: '/users/' + dbResource.user.id, title: dbResource.user.displayName }
+      self: { href: '/api/resources/' + dbResource.id },
+      user: { href: '/api/users/' + dbResource.user.id, title: dbResource.user.displayName }
     },
     id: dbResource.id,
     displayName: dbResource.displayName
@@ -26,7 +26,7 @@ exports.create = function (req, res) {
       }
       return;
     }
-    res.set('Location', '/resources/' + savedResource.id);
+    res.set('Location', '/api/resources/' + savedResource.id);
     res.status(201).send(mapResource(savedResource));
   });
 };
@@ -49,7 +49,7 @@ exports.getById = function (req, res) {
 exports.getByUser = function (req, res) {
   var result = {
     _links: {
-      self: { href: '/resources' }
+      self: { href: '/api/resources' }
     },
     _embedded: {
       resources: []
