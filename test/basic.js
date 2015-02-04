@@ -1,7 +1,7 @@
 /* global describe, it */
 var should = require('should'); 
 var request = require('supertest');  
-var app = require('../server').app;
+var app = require('../app').app;
 
 describe('Basic route tests', function () {
   describe('GET /api/', function () {

@@ -71,7 +71,7 @@ exports.configure = function () {
                         	if (err) {
                                 	throw err;
                                 }
-                                console.log("user created");
+                                console.log("Admin user created");
                         });
 		}
 	});

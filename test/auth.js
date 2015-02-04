@@ -1,7 +1,7 @@
 /* global describe, it, before, after */
 var should = require('should');
 var request = require('supertest');
-var app = require('../server').app;
+var app = require('../app').app;
 var security = require('../infrastructure/security');
 var mongoose = require('mongoose');
 var User = require('../models/user');

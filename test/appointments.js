@@ -2,7 +2,7 @@
 /* global describe, it, before, beforeEach, after, afterEach */
 var should = require('should');
 var request = require('supertest');
-var app = require('../server').app;
+var app = require('../app').app;
 var mongoose = require('mongoose');
 var User = require('../models/user');
 var Appointment = require('../models/appointment');
