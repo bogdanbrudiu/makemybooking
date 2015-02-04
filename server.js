@@ -4,6 +4,7 @@ var leisure = require('leisure');
 var cors = require('cors');
 var passport = require('passport');
 var config = require('./config');
+var mongoose = require('mongoose');
 var passportConfig = require('./passport-config');
 var fs = require('fs');
 
@@ -56,5 +57,6 @@ function start () {
   }
 }
 
-exports.app = app;
-exports.start = start;
+mongoose.connect(config.settings.db.connectionString);
+start();
+
