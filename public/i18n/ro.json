@@ -29,7 +29,7 @@
 	"CreateNew": "Crează un client nou",
         "DisplayName": "Nume",
 	"Phone": "Telefon",
-        "Clients": "Clienţi"
+        "Clients": "Clienţi",
 	"Created": "Client creeat cu succes"
     },
    "user": {
