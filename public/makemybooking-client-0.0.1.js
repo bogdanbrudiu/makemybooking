@@ -250,6 +250,18 @@ try {
   module = angular.module('makemybooking-client-templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
+  $templateCache.put('auth/login.html',
+    '<div class="row"><div class="col-md-6"><h2>{{ \'home.Login\' | translate }}</h2><form role="form" name="form"><div class="form-group"><label for="username">{{ \'user.Email\' | translate }}:</label><input id="username" class="form-control" ng-model="user.username"></div><div class="form-group"><label for="password">{{ \'user.Password\' | translate }}:</label><input id="password" class="form-control" type="password" ng-model="user.password"></div><button type="submit" ng-click="loginLocal(user)" class="btn btn-default">{{ \'home.Login\' | translate }}</button></form></div></div>');
+}]);
+})();
+
+(function(module) {
+try {
+  module = angular.module('makemybooking-client-templates');
+} catch (e) {
+  module = angular.module('makemybooking-client-templates', []);
+}
+module.run(['$templateCache', function($templateCache) {
   $templateCache.put('appointments/appointments.html',
     '<div class="row"><div class="col-md-6"><h2>{{ \'appointment.CreateNew\' | translate }}</h2><form role="form" name="form"><div class="form-group"><input class="form-control" id="title" placeholder="{{ \'appointment.DisplayName\' | translate }}" ng-model="newAppointment.title"></div><div class="form-group"><label for="dateAndTime">{{ \'appointment.DateTime\' | translate }}</label><div class="dropdown"><a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#"><div class="input-group"><p class="form-control-static">{{ newAppointment.dateAndTime | date:\'d MMM, y H:mm\' }}</p></div></a><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"><datetimepicker ng-model="newAppointment.dateAndTime" datetimepicker-config="{ dropdownSelector: \'#dropdown2\', startView: \'hour\', minuteStep: 15 }"></ul></div></div><div class="form-group"><label for="duration">{{ \'appointment.Duration\' | translate }}</label><select class="form-control" id="duration" ng-model="newAppointment.duration"><option value="15">15 {{ \'appointment.Minutes\' | translate }}</option><option value="30">30 {{ \'appointment.Minutes\' | translate }}</option><option value="60">60 {{ \'appointment.Minutes\' | translate }}</option><option value="90">90 {{ \'appointment.Minutes\' | translate }}</option></select></div><div class="form-group"><label for="client">{{ \'appointment.Client\' | translate }}</label><select class="form-control" id="client" ng-model="newAppointment.client" ng-options="client as client.displayName for client in clients"><option value="">{{ \'appointment.PickClient\' | translate }}</option></select></div><div class="form-group"><label for="resource">{{ \'appointment.Resource\' | translate }}</label><select class="form-control" id="resource" ng-model="newAppointment.resource" ng-options="resource as resource.displayName for resource in resources"><option value="">{{ \'appointment.PickResource\' | translate }}</option></select></div><div class="form-group"><label for="remarks">{{ \'appointment.Remarks\' | translate }}</label><textarea id="remarks" class="form-control" rows="3" ng-model="newAppointment.remarks"> </textarea></div><button type="submit" class="btn btn-default" ng-click="createAppointment()" ng-disabled="form.$invalid">{{ \'common.Create\' | translate }}</button></form></div><div class="col-md-6"><h2>{{ \'appointment.Upcoming\' | translate }}</h2><p ng-if="upcomingAppointments.length === 0">-- {{ \'common.None\' | translate }} --</p><ul class="list-group"><li class="list-group-item" ng-repeat="appointment in upcomingAppointments"><div><div class="dropdown"><a href="" class="pull-right" ng-click="removeAppointment(appointment)" title="{{ \'common.Remove\' | translate }}"><span class="glyphicon glyphicon-remove"></span></a> <a class="dropdown-toggle" role="button" data-toggle="dropdown" data-target="#" title="{{ \'appointment.Reschedule\' | translate }}" id="appointment{{$index}}" href="" ng-click="setAppointmentForEdit(appointment)"><span class="glyphicon glyphicon-time"></span></a><ul class="dropdown-menu" role="menu"><datetimepicker data-ng-model="editAppointment.dateAndTime" data-datetimepicker-config="{ dropdownSelector: \'#appointment{{$index}}\', startView: \'hour\', minuteStep: 15 }" on-set-time="reschedule(newDate, oldDate)"></ul></div></div><h4 class="list-group-item-heading">{{appointment.title}} <small>{{appointment.dateAndTime | date:\'d MMM, y H:mm\'}}-{{appointment.endDateAndTime | date:\'H:mm\'}}, duration {{appointment.duration}} mins</small></h4><p class="list-group-item-text">{{appointment.remarks}}</p></li></ul><h2>{{ \'appointment.Past\' | translate }}</h2><p ng-if="pastAppointments.length === 0">-- {{ \'common.None\' | translate }} --</p><ul class="list-group"><li class="list-group-item" ng-repeat="appointment in pastAppointments"><div><a href="" class="pull-right" ng-click="removeAppointment(appointment)" title="{{ \'common.Remove\' | translate }}"><span class="glyphicon glyphicon-remove"></span></a></div><h4 class="list-group-item-heading">{{appointment.title}} <small>{{appointment.dateAndTime | date:\'d MMM, y H:mm\'}}-{{appointment.endDateAndTime | date:\'H:mm\'}}, duration {{appointment.duration}} mins</small></h4><p class="list-group-item-text">{{appointment.remarks}}</p></li></ul></div></div>');
 }]);
@@ -262,8 +274,8 @@ try {
   module = angular.module('makemybooking-client-templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('auth/login.html',
-    '<h2>Login</h2><p>Appoints doesn\'t store user credentials such as usernames and passwords. It\'s required to use one of the providers below.</p><p></p><form novalidate class="simple-form">Username: <input ng-model="user.username"><br>Password: <input type="password" ng-model="user.password"><br><input type="submit" ng-click="loginLocal(user)" value="Login"></form>');
+  $templateCache.put('home/home.html',
+    '<p translate="{{ \'home.home\' | translate }}"></p><footer class="pull-right">{{ \'home.appName\' | translate }} version {{version}} - &copy; Bogdan-Ioan BRUDIU 2015</footer>');
 }]);
 })();
 
@@ -286,18 +298,6 @@ try {
   module = angular.module('makemybooking-client-templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('home/home.html',
-    '<footer class="pull-right">{{ \'home.appName\' | translate }} version {{version}} - &copy; 2015</footer>');
-}]);
-})();
-
-(function(module) {
-try {
-  module = angular.module('makemybooking-client-templates');
-} catch (e) {
-  module = angular.module('makemybooking-client-templates', []);
-}
-module.run(['$templateCache', function($templateCache) {
   $templateCache.put('resources/resources.html',
     '<div class="row"><div class="col-md-6"><h2>{{ \'resource.CreateNew\' | translate }}</h2><form role="form" name="form"><div class="form-group"><label for="displayName">{{ \'resource.DisplayName\' | translate }}</label><input class="form-control" id="displayName" placeholder="{{ \'resource.DisplayName\' | translate }}" ng-model="newResource.displayName"></div><button type="submit" class="btn btn-default" ng-click="createResource()" ng-disabled="form.$invalid">{{ \'common.Create\' | translate }}</button></form></div><div class="col-md-6"><h2>{{ \'resource.Resources\' | translate }}</h2><p ng-if="resources.length === 0">-- {{ \'common.None\' | translate }} --</p><ul class="list-group"><li class="list-group-item" ng-repeat="resource in resources"><div><div class="dropdown"><a href="" class="pull-right" ng-click="removeResource(resource)" title="{{ \'common.Remove\' | translate }}"><span class="glyphicon glyphicon-remove"></span></a></div></div><h4 class="list-group-item-heading">{{resource.displayName}}</h4></li></ul></div></div>');
 }]);
@@ -310,8 +310,8 @@ try {
   module = angular.module('makemybooking-client-templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('users/users.html',
-    '<div class="row"><div class="col-md-6"><h2>{{ \'user.CreateNew\' | translate }}</h2><form role="form" name="form"><div class="form-group"><label for="displayName">{{ \'user.DisplayName\' | translate }}</label><input class="form-control" id="displayName" placeholder="{{ \'user.DisplayName\' | translate }}" ng-model="newUser.displayName"></div><div class="form-group"><label for="email">{{ \'user.Email\' | translate }}</label><input class="form-control" id="email" placeholder="{{ \'user.Email\' | translate }}" ng-model="newUser.email"></div><div class="form-group"><label for="provider">{{ \'user.Provider\' | translate }}</label><input class="form-control" id="provider" placeholder="{{ \'user.Provider\' | translate }}" ng-model="newUser.provider"></div><div class="form-group"><label for="password">{{ \'user.Password\' | translate }}</label><input type="password" class="form-control" id="password" placeholder="{{ \'user.Password\' | translate }}" ng-model="newUser.password"></div><button type="submit" class="btn btn-default" ng-click="createUser()" ng-disabled="form.$invalid">{{ \'common.Create\' | translate }}</button></form></div><div class="col-md-6"><h2>{{ \'user.Users\' | translate }}</h2><p ng-if="users.length === 0">-- {{ \'common.None\' | translate }} --</p><ul class="list-group"><li class="list-group-item" ng-repeat="user in users"><div><div class="dropdown"><a href="" class="pull-right" ng-click="removeUser(user)" title="{{ \'common.Remove\' | translate }}"><span class="glyphicon glyphicon-remove"></span></a></div></div><h4 class="list-group-item-heading">{{user.displayName}} <small>{{user.provider}}</small></h4><p class="list-group-item-text">{{user.email}}</p><p class="list-group-item-text">{{user.roles.join(\', \')}}</p></li></ul></div></div>');
+  $templateCache.put('shared/flash.html',
+    '<section ng-controller="FlashCtrl" class="flashcontainer"><div ng-repeat="flashMessage in flashMessages" ng-class="getMessageClass(flashMessage.level)"><button type="button" class="close" data-dismiss="alert" ng-click="dismiss(flashMessage)">&times;</button> {{flashMessage.message}}<ul ng-if="flashMessage.details.errors"><li ng-repeat="error in flashMessage.details.errors">{{error.message}}</li></ul></div></section>');
 }]);
 })();
 
@@ -322,8 +322,8 @@ try {
   module = angular.module('makemybooking-client-templates', []);
 }
 module.run(['$templateCache', function($templateCache) {
-  $templateCache.put('shared/flash.html',
-    '<section ng-controller="FlashCtrl" class="flashcontainer"><div ng-repeat="flashMessage in flashMessages" ng-class="getMessageClass(flashMessage.level)"><button type="button" class="close" data-dismiss="alert" ng-click="dismiss(flashMessage)">&times;</button> {{flashMessage.message}}<ul ng-if="flashMessage.details.errors"><li ng-repeat="error in flashMessage.details.errors">{{error.message}}</li></ul></div></section>');
+  $templateCache.put('users/users.html',
+    '<div class="row"><div class="col-md-6"><h2>{{ \'user.CreateNew\' | translate }}</h2><form role="form" name="form"><div class="form-group"><label for="displayName">{{ \'user.DisplayName\' | translate }}</label><input class="form-control" id="displayName" placeholder="{{ \'user.DisplayName\' | translate }}" ng-model="newUser.displayName"></div><div class="form-group"><label for="email">{{ \'user.Email\' | translate }}</label><input class="form-control" id="email" placeholder="{{ \'user.Email\' | translate }}" ng-model="newUser.email"></div><div class="form-group"><label for="provider">{{ \'user.Provider\' | translate }}</label><input class="form-control" id="provider" placeholder="{{ \'user.Provider\' | translate }}" ng-model="newUser.provider"></div><div class="form-group"><label for="password">{{ \'user.Password\' | translate }}</label><input type="password" class="form-control" id="password" placeholder="{{ \'user.Password\' | translate }}" ng-model="newUser.password"></div><button type="submit" class="btn btn-default" ng-click="createUser()" ng-disabled="form.$invalid">{{ \'common.Create\' | translate }}</button></form></div><div class="col-md-6"><h2>{{ \'user.Users\' | translate }}</h2><p ng-if="users.length === 0">-- {{ \'common.None\' | translate }} --</p><ul class="list-group"><li class="list-group-item" ng-repeat="user in users"><div><div class="dropdown"><a href="" class="pull-right" ng-click="removeUser(user)" title="{{ \'common.Remove\' | translate }}"><span class="glyphicon glyphicon-remove"></span></a></div></div><h4 class="list-group-item-heading">{{user.displayName}} <small>{{user.provider}}</small></h4><p class="list-group-item-text">{{user.email}}</p><p class="list-group-item-text">{{user.roles.join(\', \')}}</p></li></ul></div></div>');
 }]);
 })();
 
@@ -992,7 +992,7 @@ angular.module('appoints', [
   tmhDynamicLocaleProvider.localeLocationPattern('/i18n/angular-locale_{{locale}}.js');
 })
 
-.controller('AppCtrl', function AppController ($scope, $location, $translate, tmhDynamicLocale, usersession) {
+.controller('AppCtrl', function AppController ($scope, $rootScope, $location, $translate, tmhDynamicLocale, usersession) {
   var defaultPageTitle = 'Appoints';
 
   $scope.pageTitle = defaultPageTitle;
@@ -1023,7 +1023,8 @@ angular.module('appoints', [
   $scope.changeLanguage = function (langKey) {
     $translate.use(langKey);
     tmhDynamicLocale.set(langKey);
+    $rootScope.langKey=langKey;
   };
   $scope.langKey=$translate.proposedLanguage();
-
+  $rootScope.langKey=$scope.langKey;
 });

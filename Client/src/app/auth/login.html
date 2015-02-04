@@ -1,14 +1,26 @@
-<h2>Login</h2>
-<p>
-Appoints doesn't store user credentials such as usernames and passwords. It's required to use one of the providers below.
-</p>
-<p>
+<div class="row">
+  <div class="col-md-6">
+   <h2>{{ 'home.Login' | translate }}</h2>
+
 	<!--<a href="" ng-click="loginFacebook()">Login with Facebook</a><br>
+
 	<a href="" ng-click="loginGoogle()">Login with Google</a>-->
    
-</p>
-<form novalidate class="simple-form">
-    Username: <input type="text" ng-model="user.username" /><br />
-    Password: <input type="password" ng-model="user.password" /><br />
-    <input type="submit" ng-click="loginLocal(user)" value="Login" />
+
+    <form role="form" name="form">
+
+
+  <div class="form-group">
+        <label for="username" >{{ 'user.Email' | translate }}:</label>
+     <input id="username"  class="form-control" type="text" ng-model="user.username" />
+  </div>
+
+  <div class="form-group">
+        <label for="password" >{{ 'user.Password' | translate }}:</label>
+     <input id="password"  class="form-control" type="password" ng-model="user.password" />
+  </div>
+    
+    <button type="submit" ng-click="loginLocal(user)" class="btn btn-default" >{{ 'home.Login' | translate }}</button>
 </form>
+  </div>
+</div>

@@ -33,7 +33,7 @@ angular.module('appoints', [
   tmhDynamicLocaleProvider.localeLocationPattern('/i18n/angular-locale_{{locale}}.js');
 })
 
-.controller('AppCtrl', function AppController ($scope, $location, $translate, tmhDynamicLocale, usersession) {
+.controller('AppCtrl', function AppController ($scope, $rootScope, $location, $translate, tmhDynamicLocale, usersession) {
   var defaultPageTitle = 'Appoints';
 
   $scope.pageTitle = defaultPageTitle;
@@ -64,7 +64,8 @@ angular.module('appoints', [
   $scope.changeLanguage = function (langKey) {
     $translate.use(langKey);
     tmhDynamicLocale.set(langKey);
+    $rootScope.langKey=langKey;
   };
   $scope.langKey=$translate.proposedLanguage();
-
+  $rootScope.langKey=$scope.langKey;
 });

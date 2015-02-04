@@ -10,7 +10,8 @@
         "Clients": "Clients",
         "Users": "Users",
         "Login": "Login",
-        "Logout": "Logout"
+        "Logout": "Logout",
+	"home": "<p>Welcome!</p><p>For tests use <br/><br/>Email: <b>demo</b> <br/>Password: <b>demo</b></p>"
     },
     "common": {
         "Create": "Create",

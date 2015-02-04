@@ -10,7 +10,8 @@
         "Clients": "Clienţi",
         "Users": "Utilizatori",
         "Login": "Autentificare",
-        "Logout": "Deconectare"
+        "Logout": "Deconectare",
+	"home": "<p>Bine ati venit!</p><p>Pentru teste folositi <br/><br/>Email: <b>demo</b> <br/>Parola: <b>demo</b></p>"
     }, 
     "common": {
         "Create": "Crează",
