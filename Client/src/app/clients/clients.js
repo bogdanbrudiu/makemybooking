@@ -36,7 +36,7 @@ angular.module('appoints.clients', [
   $scope.createClient = function () {
     return appointsapi.apiRoot.then(function (rootClient) {
       return rootClient.$post('clients', null, $scope.newClient).then(function () {
-        flash.add('Client created successfully', 'info');
+        flash.add($translate.instant('client.Created'), 'info');
         initClient();
       }, function (err) {
         flash.addError(err.data);

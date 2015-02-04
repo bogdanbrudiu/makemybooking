@@ -7,6 +7,12 @@
         <input type="text" class="form-control" id="title" placeholder="{{ 'appointment.DisplayName' | translate }}" ng-model="newAppointment.title">
       </div>
       <div class="form-group">
+        <label for="resource">{{ 'appointment.Resource' | translate }}</label>
+        <select class="form-control" id="resource"  ng-model="newAppointment.resource" ng-options="resource as resource.displayName for resource in resources">
+        	<option value="">{{ 'appointment.PickResource' | translate }}</option>  
+        </select>
+      </div>
+      <div class="form-group">
         <label for="dateAndTime">{{ 'appointment.DateTime' | translate }}</label>
         <div class="dropdown">
           <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#">
@@ -15,7 +21,7 @@
             </div>
           </a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-            <datetimepicker ng-model="newAppointment.dateAndTime" datetimepicker-config="{ dropdownSelector: '#dropdown2', startView: 'hour', minuteStep: 15 }"/>
+            <datetimepicker ng-model="newAppointment.dateAndTime" data-before-render="beforeRender($view, $dates, $leftDate, $upDate, $rightDate)" datetimepicker-config="{ dropdownSelector: '#dropdown2', startView: 'hour', minuteStep: 15 }"/>
           </ul>
         </div>
       </div>
@@ -34,12 +40,7 @@
         	<option value="">{{ 'appointment.PickClient' | translate }}</option>
         </select>
       </div>
-      <div class="form-group">
-        <label for="resource">{{ 'appointment.Resource' | translate }}</label>
-        <select class="form-control" id="resource"  ng-model="newAppointment.resource" ng-options="resource as resource.displayName for resource in resources">
-        	<option value="">{{ 'appointment.PickResource' | translate }}</option>  
-        </select>
-      </div>
+     
 
       <div class="form-group">
         <label for="remarks">{{ 'appointment.Remarks' | translate }}</label>

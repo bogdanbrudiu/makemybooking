@@ -39,7 +39,7 @@ angular.module('appoints.users', [
   $scope.createUser = function () {
     return appointsapi.apiRoot.then(function (rootUser) {
       return rootUser.$post('users', null, $scope.newUser).then(function () {
-        flash.add('User created successfully', 'info');
+        flash.add($translate.instant('user.Created'), 'info');
         initUser();
       }, function (err) {
         flash.addError(err.data);

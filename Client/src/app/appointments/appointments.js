@@ -77,7 +77,7 @@ appointsapi.apiRoot.then(function (rootResource) {
       // Sync endDateAndTime first
       $scope.newAppointment.endDateAndTime = moment($scope.newAppointment.dateAndTime).add($scope.newAppointment.duration, 'minutes');
       return rootResource.$post('appointments', null, $scope.newAppointment).then(function () {
-        flash.add('Appointment created successfully', 'info');
+        flash.add($translate.instant('appointment.Created'), 'info');
         initAppointment();
       }, function (err) {
         flash.addError(err.data);
@@ -113,6 +113,44 @@ appointsapi.apiRoot.then(function (rootResource) {
     }
   };
 
+  $scope.beforeRender = function ($view, $dates, $leftDate, $upDate, $rightDate) {
+appointsapi.apiRoot.then(function (rootResource) {
+      return rootResource.$get('appointments').then(function (appointmentsResource) { 
+        return appointmentsResource.$get('appointments').then(function(appointments) {
+    appointments.forEach(function (appointment){
+$dates.forEach(function (date){
+
+if(appointments.filter(
+	function (element){ 
+		if(date.dateValue+new Date().getTimezoneOffset()*60*1000 >= Date.parse(element.dateAndTime) &&
+		   date.dateValue+new Date().getTimezoneOffset()*60*1000 < Date.parse(element.endDateAndTime))
+		{	 
+			return element;
+		}
+	}).length>0){
+$dates[$dates.indexOf(date)].selectable = false;
+}
+
+/*
+	if(new Date(date.dateValue+new Date().getTimezoneOffset()*60*1000).valueOf()===new Date(Date.parse(appointment.dateAndTime)).valueOf()){
+		if($view=="minute" ||
+		 appointment.duration==60 || 
+		 appointment.duration==30 && appointments.filter(function (element){ if(Date.parse(element.dateAndTime)-30*60*1000==Date.parse(appointment.dateAndTime)){ return element;}}).length>0 ||
+
+		){
+			$dates[$dates.indexOf(date)].selectable = false;
+		}
+	}
+*/
+
+
+})
+    });
+
+	})
+       })
+})
+}
   initAppointment();
   load();
   

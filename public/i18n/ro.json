@@ -11,7 +11,7 @@
         "Users": "Utilizatori",
         "Login": "Autentificare",
         "Logout": "Deconectare",
-	"home": "<p>Bine ati venit!</p><p>Pentru teste folositi <br/><br/>Email: <b>demo</b> <br/>Parola: <b>demo</b></p>"
+	"home": "<p>Bine ati venit!<p></br><p>MakeMyBooking.co este o aplicatie utila pentru efectuarea/administrarea programarilor de orice tip:</br>Coafura, Frizerie, Manichiura, Pedichiura, Machiaje profesionale, Tatuaje, Masaj etc.</p><p>Fie ca ai o afacere mica si lucrezi de unul singur, fie ca ai o echipa mai mare, poti utiliza MakeMyBooking.co - o aplicatie usor de folosit!</p><p>Pentru mai multe informatii : mobil:  +40 723 345 332, e-mail: bogdan@brudiu.ro</p><p>Pentru teste folositi <br/><br/>Email: <b>demo</b> <br/>Parola: <b>demo</b></p>"
     }, 
     "common": {
         "Create": "Crează",
@@ -22,13 +22,15 @@
    "resource": {
 	"CreateNew": "Crează o resursa nouă",
         "DisplayName": "Nume",
-        "Resources": "Resurse"
+        "Resources": "Resurse",
+	"Created": "Resursa creeată cu succes"
     },
    "client": {
 	"CreateNew": "Crează un client nou",
         "DisplayName": "Nume",
 	"Phone": "Telefon",
         "Clients": "Clienţi"
+	"Created": "Client creeat cu succes"
     },
    "user": {
 	"Users": "Utilizatori",
@@ -36,7 +38,8 @@
         "DisplayName": "Nume",
 	"Email": "Email",
         "Provider": "Furnizor",
-	"Password": "Parola"
+	"Password": "Parola",
+	"Created": "Utilizator creeat cu succes"
     },
    "appointment": {
 	"Upcoming": "Programări următoare",
@@ -51,6 +54,7 @@
 	"PickClient": "Alege un client",
         "PickResource": "Alege o resursă",
         "Minutes": "minute",
-	"Remarks": "Remarci"
+	"Remarks": "Remarci",
+	"Created": "Programare creeată cu succes"
     }
 }

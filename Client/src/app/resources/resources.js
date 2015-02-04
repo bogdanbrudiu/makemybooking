@@ -36,7 +36,7 @@ angular.module('appoints.resources', [
   $scope.createResource = function () {
     return appointsapi.apiRoot.then(function (rootResource) {
       return rootResource.$post('resources', null, $scope.newResource).then(function () {
-        flash.add('Resource created successfully', 'info');
+        flash.add($translate.instant('resource.Created'), 'info');
         initResource();
       }, function (err) {
         flash.addError(err.data);
