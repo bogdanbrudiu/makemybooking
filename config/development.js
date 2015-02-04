@@ -20,7 +20,7 @@ var settings = {
     methods: [ "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD" ]
   },
   port: 3000,
-  server_ip_address: '127.0.0.1'
+  server_ip_address: ''
 };
 
 exports.settings = settings;

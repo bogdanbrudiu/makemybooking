@@ -19,7 +19,6 @@ var mediaTypes = [
 passportConfig.configure();
 
 var frontent=false;
-var webapp = null;
 
 fs.existsSync = fs.existsSync || require('path').existsSync; //fix openshift problems
 if (fs.existsSync(__dirname + "/public")) { 
@@ -38,23 +37,24 @@ app.use(leisure.accept(mediaTypes));
 app.use(passport.initialize());
 
 var routes = require('./routes');
-app.use('/api/', routes.router);
+app.use('/', routes.router);
 
 function start () {
   var port = config.settings.port;
-  
-  app.listen(port, config.settings.server_ip_address);
+  if(config.settings.server_ip_address!=''){
+	console.log('Starting service on: '+config.settings.server_ip_address+':'+port);
+  	app.listen(port, config.settings.server_ip_address);
+  }else{
+	console.log('Starting service on port: '+port);
+	app.listen(port);
+  }
+	
   console.log('Appoints service started on port ' + port);
  
   if(frontent){
-
 	app.use(express.static(__dirname + "/public"));
-
   }
 }
 
 exports.app = app;
-if(frontent){
-	exports.webapp = webapp;
-}
 exports.start = start;
