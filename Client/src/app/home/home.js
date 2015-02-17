@@ -1,4 +1,4 @@
-angular.module('appoints.home', [
+angular.module('makemybooking.home', [
   'makemybooking.config',
   'ngRoute'
 ])

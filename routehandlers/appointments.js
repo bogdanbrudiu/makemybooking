@@ -11,7 +11,9 @@ function mapAppointment(dbAppointment) {
     dateAndTime: dbAppointment.dateAndTime,
     endDateAndTime: dbAppointment.endDateAndTime,
     duration: dbAppointment.duration,
-    remarks: dbAppointment.remarks
+    remarks: dbAppointment.remarks,
+    resource: dbAppointment.resource,
+    client: dbAppointment.client
   };
   if(dbAppointment.resource){
 	  halAppointment._links.resource = { href: '/api/resources/' + dbAppointment.resource.id, title: dbAppointment.resource.displayName };

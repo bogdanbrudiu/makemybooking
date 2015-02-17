@@ -1,4 +1,4 @@
-angular.module('appoints.flash', []) 
+angular.module('makemybooking.flash', []) 
 .factory('flash', function ($rootScope, $timeout) {
   var flashes = [];
 

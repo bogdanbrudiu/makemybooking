@@ -33,4 +33,29 @@
       </li>
     </ul>
   </div>
+<div class="col-md-6" ng-controller="ContactsController">
+<div>
+  <div>
+    <button ng-click="login()" ng-hide="currentUser">Login</button>
+    <select ng-show="currentUser" name="calendar" ng-model="selectedCalendar" ng-options="cal.summary for cal in calendars"></select>{{calendars.length}}
+    <button ng-show="currentUser" ng-click="loadCalendars()">Get Calendars</button>
+    <button ng-show="currentUser" ng-click="loadEvents()">Get Calendar Entries</button>
+    <button ng-show="currentUser" ng-click="loadContacts()">Get Contacts</button>
+  </div>
+
+  <ul>
+    <li ng-repeat="item in calendarItems">{{item.summary}}</li>
+  </ul>
+<ul>
+    <li ng-repeat="item in contactsItems">{{item.summary}}</li>
+  </ul>
+  <div ng-show="currentUser">
+    <h1>You're authenticated!</h1>
+
+    Logged in as {{currentUser.displayName}}
+
+  </div>
+</div>
+
+</div>
 </div>

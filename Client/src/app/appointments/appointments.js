@@ -1,6 +1,6 @@
-angular.module('appoints.appointments', [
+angular.module('makemybooking.appointments', [
   'ngRoute',
-  'appoints.api'
+  'makemybooking.api'
 ])
 
 .config(function config($routeProvider) {
@@ -12,12 +12,12 @@ angular.module('appoints.appointments', [
     });
 })
 
-.controller('AppointmentsCtrl', function AppointmentsController($scope, $window, _, $translate, appointsapi, flash, moment) {
+.controller('AppointmentsCtrl', function AppointmentsController($scope, $window, _, $translate, makemybookingapi, flash, moment) {
 
   function load() {
 
 
-appointsapi.apiRoot.then(function (rootResource) {
+makemybookingapi.apiRoot.then(function (rootResource) {
       return rootResource.$get('appointments').then(function (appointmentsResource) { 
         return appointmentsResource.$get('appointments').then(function(appointments) { // get embedded appointments
           $scope.upcomingAppointments = _.filter(appointments, function (appointment){
@@ -33,7 +33,7 @@ appointsapi.apiRoot.then(function (rootResource) {
     });
 
 
-appointsapi.apiRoot.then(function (rootResource) {
+makemybookingapi.apiRoot.then(function (rootResource) {
       return rootResource.$get('resources').then(function (resourcesResource) { 
         return resourcesResource.$get('resources').then(function(resources) { // get embedded resources
          $scope.resources=resources;
@@ -44,7 +44,7 @@ appointsapi.apiRoot.then(function (rootResource) {
     });
 
 
-appointsapi.apiRoot.then(function (rootResource) {
+makemybookingapi.apiRoot.then(function (rootResource) {
       return rootResource.$get('clients').then(function (clientsResource) { 
         return clientsResource.$get('clients').then(function(clients) { // get embedded appointments
           $scope.clients=clients;
@@ -73,7 +73,7 @@ appointsapi.apiRoot.then(function (rootResource) {
   };
 
   $scope.createAppointment = function () {
-    return appointsapi.apiRoot.then(function (rootResource) {
+    return makemybookingapi.apiRoot.then(function (rootResource) {
       // Sync endDateAndTime first
       $scope.newAppointment.endDateAndTime = moment($scope.newAppointment.dateAndTime).add($scope.newAppointment.duration, 'minutes');
       return rootResource.$post('appointments', null, $scope.newAppointment).then(function () {
@@ -114,7 +114,7 @@ appointsapi.apiRoot.then(function (rootResource) {
   };
 
   $scope.beforeRender = function ($view, $dates, $leftDate, $upDate, $rightDate) {
-appointsapi.apiRoot.then(function (rootResource) {
+makemybookingapi.apiRoot.then(function (rootResource) {
       return rootResource.$get('appointments').then(function (appointmentsResource) { 
         return appointmentsResource.$get('appointments').then(function(appointments) {
     appointments.forEach(function (appointment){

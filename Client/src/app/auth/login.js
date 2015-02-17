@@ -1,7 +1,7 @@
-angular.module('appoints.login', [
+angular.module('makemybooking.login', [
   'makemybooking.config',
-  'appoints.usersession',
-  'appoints.api',
+  'makemybooking.usersession',
+  'makemybooking.api',
   'ngRoute'
 ])
 
@@ -41,7 +41,7 @@ angular.module('appoints.login', [
 })
  
 
-.controller('LoginCtrl', function LoginController($scope, $rootScope, $window, $location, config, usersession, appointsapi) {
+.controller('LoginCtrl', function LoginController($scope, $rootScope, $window, $location, config, usersession, makemybookingapi) {
 
   usersession.returnTo = $location.search().returnTo;
 
@@ -54,7 +54,7 @@ angular.module('appoints.login', [
   };
 
   $scope.loginLocal = function (user) {
-      appointsapi.apiRoot.then(function (rootResource) {
+      makemybookingapi.apiRoot.then(function (rootResource) {
  return rootResource.$get('localauth', {
               username: user.username,
               password: user.password

@@ -1,6 +1,6 @@
-angular.module('appoints.clients', [
+angular.module('makemybooking.clients', [
   'ngRoute',
-  'appoints.api'
+  'makemybooking.api'
 ])
 
 .config(function config($routeProvider) {
@@ -12,10 +12,10 @@ angular.module('appoints.clients', [
     });
 })
 
-.controller('ClientsCtrl', function ClientsController($scope, $window, _, $translate, appointsapi, flash, moment) {
+.controller('ClientsCtrl', function ClientsController($scope, $window, _, $translate, makemybookingapi, flash, moment) {
 
   function load() {
-    return appointsapi.apiRoot.then(function (rootClient) {
+    return makemybookingapi.apiRoot.then(function (rootClient) {
       return rootClient.$get('clients').then(function (clientsClient) { 
         return clientsClient.$get('clients').then(function(clients) { // get embedded clients
 	  $scope.clients=clients;
@@ -34,7 +34,7 @@ angular.module('appoints.clients', [
 
 
   $scope.createClient = function () {
-    return appointsapi.apiRoot.then(function (rootClient) {
+    return makemybookingapi.apiRoot.then(function (rootClient) {
       return rootClient.$post('clients', null, $scope.newClient).then(function () {
         flash.add($translate.instant('client.Created'), 'info');
         initClient();

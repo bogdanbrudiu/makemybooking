@@ -25,10 +25,15 @@
     "angular-hal": "~0.1.5",
     "lodash": "~2.4.1",
     "moment": "~2.8.3",
+    "angular-bootstrap" : "~0.12.0",
     "angular-bootstrap-datetimepicker": "~0.3",
+    "bootstrap-table": "~1.6.0",
     "angular-translate": "~2.5.2",
     "angular-translate-loader-static-files": "~2.5.2",
-    "angular-dynamic-locale": "~0.1.24"
+    "angular-dynamic-locale": "~0.1.24",
+    "angular-googleapi": "0.0.2",
+    "gapi": "https://apis.google.com/js/client.js",
+    "checklist-model" :"0.2.4"
   },
   "overrides": {
     "bootstrap": {

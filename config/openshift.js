@@ -24,9 +24,9 @@ var settings = {
       callbackUrl: 'http://localhost:3000/auth/facebook/callback' 
     },
     google: { 
-      clientId: 'your client id here', 
-      clientSecret: 'your client secret here', 
-      callbackUrl: 'http://localhost:3000/auth/google/callback' 
+      clientId: '390294162018-m66aop112q214dncm66i2v58qgo7ka0q.apps.googleusercontent.com', 
+      clientSecret: 'vpDqXmD-lINur1LxsBhou4rN', 
+      callbackUrl: 'http://www.makemybooking.co/auth/google/callback' 
     }
   },
   tokenSecret: 'my super duper shared secret',

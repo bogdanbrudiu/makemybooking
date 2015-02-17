@@ -1,1 +1,1 @@
-angular.module('appoints.directives', []);
+angular.module('makemybooking.directives', []);

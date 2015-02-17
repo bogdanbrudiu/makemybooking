@@ -1,18 +1,22 @@
-angular.module('appoints', [
+angular.module('makemybooking', [
   'ngRoute',
   'pascalprecht.translate',
   'tmh.dynamicLocale',
   'ui.bootstrap.datetimepicker',
-  'appoints.directives',
-  'appoints.flash',
-  'appoints.usersession',
-  'appoints.authinterceptor',
-  'appoints.home',
-  'appoints.login',
-  'appoints.appointments',
-  'appoints.resources',
-  'appoints.clients',
-  'appoints.users',
+  'ui.bootstrap',
+  'checklist-model',
+  'makemybooking.directives',
+  'makemybooking.flash',
+  'makemybooking.usersession',
+  'makemybooking.authinterceptor',
+  'makemybooking.home',
+  'makemybooking.login',
+  'makemybooking.appointments',
+  'makemybooking.appointmentsView',
+  'makemybooking.resources',
+  'makemybooking.clients',
+  'makemybooking.users',
+  'makemybooking.contacts',
   'makemybooking-client-templates'
 ])
 
@@ -34,7 +38,7 @@ angular.module('appoints', [
 })
 
 .controller('AppCtrl', function AppController ($scope, $rootScope, $location, $translate, tmhDynamicLocale, usersession) {
-  var defaultPageTitle = 'Appoints';
+  var defaultPageTitle = 'MakeMyBooking';
 
   $scope.pageTitle = defaultPageTitle;
 

@@ -1,6 +1,6 @@
-angular.module('appoints.users', [
+angular.module('makemybooking.users', [
   'ngRoute',
-  'appoints.api'
+  'makemybooking.api'
 ])
 
 .config(function config($routeProvider) {
@@ -12,10 +12,10 @@ angular.module('appoints.users', [
     });
 })
 
-.controller('UsersCtrl', function UsersController($scope, $window, _, $translate, appointsapi, flash) {
+.controller('UsersCtrl', function UsersController($scope, $window, _, $translate, makemybookingapi, flash) {
 
   function load() {
-    return appointsapi.apiRoot.then(function (rootUser) {
+    return makemybookingapi.apiRoot.then(function (rootUser) {
       return rootUser.$get('users').then(function (usersUser) { 
         return usersUser.$get('users').then(function(users) { // get embedded users
 	  $scope.users=users;
@@ -37,7 +37,7 @@ angular.module('appoints.users', [
 
 
   $scope.createUser = function () {
-    return appointsapi.apiRoot.then(function (rootUser) {
+    return makemybookingapi.apiRoot.then(function (rootUser) {
       return rootUser.$post('users', null, $scope.newUser).then(function () {
         flash.add($translate.instant('user.Created'), 'info');
         initUser();

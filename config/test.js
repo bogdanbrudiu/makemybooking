@@ -9,9 +9,9 @@ var settings = {
       callbackUrl: 'http://localhost:3000/auth/facebook/callback' 
     },
     google: { 
-      clientId: 'your client id here', 
-      clientSecret: 'your client secret here', 
-      callbackUrl: 'http://localhost:3000/auth/google/callback' 
+      clientId: '390294162018-trdjjr9s1vhb2qdnn3gi7gm3kq8ucc97.apps.googleusercontent.com', 
+      clientSecret: 'TO33UXftg4eJRrQHQAm_E9db', 
+      callbackUrl: 'http://127.0.0.1:3000/api/auth/google/callback' 
     }
   },
   tokenSecret: 'my super duper shared secret',

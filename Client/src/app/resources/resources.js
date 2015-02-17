@@ -1,6 +1,6 @@
-angular.module('appoints.resources', [
+angular.module('makemybooking.resources', [
   'ngRoute',
-  'appoints.api'
+  'makemybooking.api'
 ])
 
 .config(function config($routeProvider) {
@@ -12,10 +12,10 @@ angular.module('appoints.resources', [
     });
 })
 
-.controller('ResourcesCtrl', function ResourcesController($scope, $window, _, $translate, appointsapi, flash) {
+.controller('ResourcesCtrl', function ResourcesController($scope, $window, _, $translate, makemybookingapi, flash) {
 
   function load() {
-    return appointsapi.apiRoot.then(function (rootResource) {
+    return makemybookingapi.apiRoot.then(function (rootResource) {
       return rootResource.$get('resources').then(function (resourcesResource) { 
         return resourcesResource.$get('resources').then(function(resources) { // get embedded resources
 	  $scope.resources=resources;
@@ -34,7 +34,7 @@ angular.module('appoints.resources', [
 
 
   $scope.createResource = function () {
-    return appointsapi.apiRoot.then(function (rootResource) {
+    return makemybookingapi.apiRoot.then(function (rootResource) {
       return rootResource.$post('resources', null, $scope.newResource).then(function () {
         flash.add($translate.instant('resource.Created'), 'info');
         initResource();

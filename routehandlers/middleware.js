@@ -3,23 +3,15 @@ var config = require('../config');
 var User = require('../models/user');
 var sanitizer = require('sanitizer');
 
-//  function notAuthenticated (details) {
-//    res.status('401').send({ 
-//      message: 'Access to ' + req.path + ' is not allowed.',
-//      details: details,
-//      _links: {
-//    	auth_local: { href: '/auth/local' }, 
-//        auth_facebook: { href: '/auth/facebook' }, 
-//        auth_google: { href: '/auth/google' }
-//      }
-//    });
-//  }
+
 function notAuthenticated (req, res, details) {
 		    res.status('401').send({ 
 		      message: 'Access to ' + req.path + ' is not allowed.',
 		      details: details,
 		      _links: {
-		    	auth_local: { href: '/auth/local' }
+		    	auth_local: { href: '/auth/local' },
+ 			auth_facebook: { href: '/auth/facebook' }, 
+        		auth_google: { href: '/auth/google' }
 		      }
 		    });
 		  }

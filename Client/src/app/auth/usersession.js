@@ -1,10 +1,10 @@
-angular.module('appoints.usersession', [
-  'appoints.api',
-  'appoints.flash',
+angular.module('makemybooking.usersession', [
+  'makemybooking.api',
+  'makemybooking.flash',
   'makemybooking.config'
 ])
 
-.factory('usersession', function ($rootScope, $window, config, flash, appointsapi, _) {
+.factory('usersession', function ($rootScope, $window, config, flash, makemybookingapi, _) {
 
   var defaultSession = {
     userId: '',
@@ -32,7 +32,7 @@ angular.module('appoints.usersession', [
   function login(token) {
     // Authenticate the user from the given authorization token
     $window.localStorage.setItem('access_token', token);
-    return appointsapi.apiRoot.then(function (rootResource) {
+    return makemybookingapi.apiRoot.then(function (rootResource) {
       return rootResource.$get('me').then(function (userResource) {
         currentSession.isAuthenticated = true;
         currentSession.userId = userResource.userId;
@@ -61,10 +61,10 @@ angular.module('appoints.usersession', [
   };
 })
 
-.run(function ($window, $rootScope, $log, appointsapi, usersession) {
+.run(function ($window, $rootScope, $log, makemybookingapi, usersession) {
   // Automatically try to login the user when starting up this module
   if ($window.localStorage.getItem('access_token') !== null) {
-    appointsapi.apiRoot.then(function (rootResource) {
+    makemybookingapi.apiRoot.then(function (rootResource) {
       rootResource.$get('me').then(function (userResource) {
         usersession.current.isAuthenticated = true;
         usersession.current.userId = userResource.userId;

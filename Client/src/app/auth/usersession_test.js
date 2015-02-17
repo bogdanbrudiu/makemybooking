@@ -6,7 +6,7 @@ describe('usersession tests', function () {
   beforeEach(function () {
     
     // Load the module.
-    module('appoints.usersession');
+    module('makemybooking.usersession');
 
     // Provide constants that would be provided via app.js, but are not available because 
     // we're only loading the module in isolation.

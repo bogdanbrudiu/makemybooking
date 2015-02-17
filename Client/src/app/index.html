@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="appoints" ng-controller="AppCtrl">
+<html ng-app="makemybooking" ng-controller="AppCtrl">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1">
@@ -9,6 +9,7 @@
     <title ng-bind-template="{{pageTitle}} | {{ 'home.appName' | translate }}"></title>
     <!-- inject:vendor:css -->
     <link rel="stylesheet" href="/angular-bootstrap-datetimepicker/src/css/datetimepicker.css">
+    <link rel="stylesheet" href="/bootstrap-table/src/bootstrap-table.css">
     <!-- endinject -->
     <!-- inject:css -->
     <link rel="stylesheet" href="/css/app.css">
@@ -29,7 +30,9 @@
         </div>
         <nav class="collapse navbar-collapse" role="navigation">
           <ul class="nav navbar-nav">
-            <li ng-class="{active: routeIs('/appointments')}" ng-show='user.isCustomer()'><a href="#/appointments" translate>{{ 'home.Appointments' | translate }}</a></li>
+            <!--<li ng-class="{active: routeIs('/appointments')}" ng-show='user.isCustomer()'><a href="#/appointments" translate>{{ 'home.Appointments' | translate }}</a></li>-->
+
+ 	    <li ng-class="{active: routeIs('/appointmentsView')}" ng-show='user.isCustomer()'><a href="#/appointmentsView" translate>{{ 'home.Appointments' | translate }}</a></li>
 	    <li ng-class="{active: routeIs('/resources')}" ng-show='user.isCustomer()'><a href="#/resources" translate>{{ 'home.Resources' | translate }}</a></li>
             <li ng-class="{active: routeIs('/clients')}" ng-show='user.isCustomer()'><a href="#/clients" translate>{{ 'home.Clients' | translate }}</a></li>
 	    <li ng-class="{active: routeIs('/users')}" ng-show='user.isAdmin()'><a href="#/users" translate>{{ 'home.Users' | translate }}</a></li>
@@ -74,14 +77,53 @@
     <script src="/rfc6570/rfc6570.js"></script>
     <script src="/lodash/dist/lodash.compat.js"></script>
     <script src="/moment/moment.js"></script>
+    <script src="/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+    <script src="/bootstrap-table/src/bootstrap-table.js"></script>
+    <script src="/bootstrap-table/src/extensions/filter/bootstrap-table-filter.js"></script>
+    <script src="/bootstrap-table/src/extensions/editable/bootstrap-table-editable.js"></script>
+    <script src="/bootstrap-table/src/extensions/export/bootstrap-table-export.js"></script>
+    <script src="/bootstrap-table/src/extensions/flatJSON/bootstrap-table-flatJSON.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-da-DK.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-el-GR.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-hu-HU.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-en-US.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-pt-PT.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-zh-TW.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-pl-PL.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-ja-JP.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-sv-SE.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-ko-KR.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-nl-NL.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-es-CR.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-sk-SK.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-ru-RU.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-es-AR.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-ur-PK.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-it-IT.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-pt-BR.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-es-NI.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-tr-TR.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-uk-UA.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-ms-MY.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-fr-FR.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-vi-VN.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-th-TH.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-cs-CZ.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-de-DE.js"></script>
+    <script src="/bootstrap-table/src/locale/bootstrap-table-fr-BE.js"></script>
     <script src="/angular-translate/angular-translate.js"></script>
     <script src="/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
     <script src="/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
+    <script src="/angular-googleapi/src/angular-googleapi.js"></script>
+    <script src="/gapi/index.js"></script>
+    <script src="/checklist-model/checklist-model.js"></script>
     <script src="/bootstrap/dist/js/bootstrap.js"></script>
     <script src="/angular-hal/angular-hal.js"></script>
     <!-- endinject -->
     <!-- inject:js -->
+    <script src="/clients/contacts.js"></script>
     <script src="/config.js"></script>
     <script src="/i18n/angular-locale_en.js"></script>
     <script src="/i18n/angular-locale_ro.js"></script>
@@ -89,8 +131,9 @@
     <script src="/shared/directives.js"></script>
     <script src="/shared/flash.js"></script>
     <script src="/home/home.js"></script>
-    <script src="/shared/appointsapi.js"></script>
+    <script src="/shared/makemybookingapi.js"></script>
     <script src="/appointments/appointments.js"></script>
+    <script src="/appointments/appointmentsView.js"></script>
     <script src="/auth/usersession.js"></script>
     <script src="/clients/clients.js"></script>
     <script src="/resources/resources.js"></script>

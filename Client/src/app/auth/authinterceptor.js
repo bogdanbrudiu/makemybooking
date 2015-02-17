@@ -1,5 +1,5 @@
-angular.module('appoints.authinterceptor', [
-  'appoints.usersession'
+angular.module('makemybooking.authinterceptor', [
+  'makemybooking.usersession'
 ])
 
 .factory('authInterceptor', function ($rootScope, $q, $window, $location, $log, $injector) {
