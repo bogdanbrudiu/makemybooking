@@ -13,6 +13,7 @@
         "Login": "Autentificare",
         "Logout": "Deconectare",
         "Public": "Public",
+        "Settings":  "Setări",
 	"home": "<p>Bine ati venit!<p></br><p>MakeMyBooking.co este o aplicatie utila pentru efectuarea/administrarea programarilor de orice tip:</br>Coafura, Frizerie, Manichiura, Pedichiura, Machiaje profesionale, Tatuaje, Masaj etc.</p><p>Fie ca ai o afacere mica si lucrezi de unul singur, fie ca ai o echipa mai mare, poti utiliza MakeMyBooking.co - o aplicatie usor de folosit!</p><p>Pentru mai multe informatii : mobil:  +40 723 345 332, e-mail: bogdan@brudiu.ro</p><p>Pentru teste folositi <br/><br/>Email: <b>demo</b> <br/>Parola: <b>demo</b></p>"
     }, 
     "common": {

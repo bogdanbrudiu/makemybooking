@@ -13,6 +13,7 @@
         "Login": "Login",
         "Logout": "Logout",
         "Public": "Public",
+        "Settings":  "Settings",
 	"home": "<pWelcome!</p></br><p>MakeMyBooking.co is an useful application  for programming management of any type:</br>Hairstyling, Nails, Professional Makeup, Tattoo Salon,  Massage etc.</p><p>Whether you have a small business and you are working by yourself, whether you have a big team, you can use  MakeMyBooking.co - an application easy to use!</p><p>For more informations: mobil +40 723 345 332, e-mail: bogdan@brudiu.ro</p><p>For tests use <br/><br/>Email: <b>demo</b> <br/>Password: <b>demo</b></p>"    },
     "common": {
         "Create": "Create",
