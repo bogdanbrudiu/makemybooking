@@ -3,7 +3,7 @@
   "deps": [],
   "constants": {
   	"config": {
-      "defaultApiEndpoint": "http://localhost:3000/api"
+      "defaultApiEndpoint": "/api"
   	}
   }
 }

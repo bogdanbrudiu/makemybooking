@@ -1,0 +1,70 @@
+{
+    "languageNames": {
+        "en": "English",
+        "ro": "Romanian"
+    },
+    "home": {
+        "appName": "MakeMyBooking.co",
+        "Appointments": "Appointments",
+        "Resources": "Resources",
+        "Clients": "Clients",
+        "Activities": "Activities",
+        "Users": "Users",
+        "Login": "Login",
+        "Logout": "Logout",
+        "Public": "Public",
+        "Settings":  "Settings",
+	"home": "<pWelcome!</p></br><p>MakeMyBooking.co is an useful application  for programming management of any type:</br>Hairstyling, Nails, Professional Makeup, Tattoo Salon,  Massage etc.</p><p>Whether you have a small business and you are working by yourself, whether you have a big team, you can use  MakeMyBooking.co - an application easy to use!</p><p>For more informations: mobil +40 723 345 332, e-mail: bogdan@brudiu.ro</p><p>For tests use <br/><br/>Email: <b>demo</b> <br/>Password: <b>demo</b></p>"    },
+    "common": {
+        "Create": "Create",
+  	"Remove": "Remove",
+        "None": "None",
+	"AreYouSure": "Are you sure?"
+    },
+   "resource": {
+	"CreateNew": "Create new resurce",
+        "DisplayName": "Name",
+        "Resources": "Resurces",
+	"Created": "Resurce created successfully"
+    },
+    "client": {
+        "CreateNew": "Create new client",
+        "DisplayName": "Name",
+        "Phone": "Phone",
+        "Email": "Email",
+        "Clients": "Clients",
+        "Created": "Client created successfully"
+    },
+     "activity": {
+	"CreateNew": "Create new activity",
+        "DisplayName": "Name",
+	"Duration": "Duration",
+        "Activities": "Activities",
+	"Created": "Activity created successfully"
+    },
+   "user": {
+	"Users": "Users",
+	"CreateNew": "Create new user",
+        "DisplayName": "Name",
+	"Email": "Email",
+        "Provider": "Provider",
+	"Password": "Password",
+	"Created": "User created successfully"
+    },
+   "appointment": {
+	"Upcoming": "Upcoming appointments",
+	"Past": "Past appointments",
+	"CreateNew": "Create new appointments",
+	"Reschedule": "Reschedule appointment",
+	"DisplayName": "Enter appointment description",
+	"DateTime": "Appointment date and time",
+        "Duration": "Duration",
+	"Client": "Client",
+        "Resource": "Resource",
+	"PickClient": "Pick client",
+        "PickResource": "Pick resource",
+        "Minutes": "minutes",
+	"Remarks": "Remarks",
+	"Created": "Appointment created successfully"
+    }
+}

@@ -1,6 +1,6 @@
 {
   "name": "MakeMyBooking.co-Backend",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An appointment scheduler service",
   "main": "server.js",
   "dependencies": {
