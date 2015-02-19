@@ -76,6 +76,29 @@ exports.configure = function () {
 		}
 	});
 
+	demo = {
+		userId : 'demo',
+                email : 'demo',
+                password : 'demo',
+                displayName : 'Demo',
+                provider : 'local',
+		roles: ["customer"],
+  		allowsPublic: true
+        };
+
+	User.findOne({email: demo .email}, function(err,user){
+		if(!user){
+			//user not found so create it
+  			User.create(demo , function(err, dbUser) {
+                        	if (err) {
+                                	throw err;
+                                }
+                                console.log("Demo  user created");
+                        });
+		}
+	});
+
+
   passport.use(new LocalStrategy(
    function(username, password, done) {
     User.findOne({ email: username, password: password }, function(err, user) {

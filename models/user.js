@@ -11,6 +11,7 @@ var UserSchema = new Schema({
   email: { type: String, required: true },
   displayName: { type: String, required: true },
   provider: { type: String, required: true },
+  allowsPublic: Boolean,
   password: String,
   providerAccessToken: String,
   providerRefreshToken: String,

@@ -8,9 +8,11 @@
         "Appointments": "Appointments",
         "Resources": "Resources",
         "Clients": "Clients",
+        "Activities": "Activities",
         "Users": "Users",
         "Login": "Login",
         "Logout": "Logout",
+        "Public": "Public",
 	"home": "<pWelcome!</p></br><p>MakeMyBooking.co is an useful application  for programming management of any type:</br>Hairstyling, Nails, Professional Makeup, Tattoo Salon,  Massage etc.</p><p>Whether you have a small business and you are working by yourself, whether you have a big team, you can use  MakeMyBooking.co - an application easy to use!</p><p>For more informations: mobil +40 723 345 332, e-mail: bogdan@brudiu.ro</p><p>For tests use <br/><br/>Email: <b>demo</b> <br/>Password: <b>demo</b></p>"    },
     "common": {
         "Create": "Create",
@@ -24,12 +26,20 @@
         "Resources": "Resurces",
 	"Created": "Resurce created successfully"
     },
-   "client": {
-	"CreateNew": "Create new client",
+    "client": {
+        "CreateNew": "Create new client",
         "DisplayName": "Name",
-	"Phone": "Phone",
+        "Phone": "Phone",
+        "Email": "Email",
         "Clients": "Clients",
-	"Created": "Client created successfully"
+        "Created": "Client created successfully"
+    },
+     "activity": {
+	"CreateNew": "Create new activity",
+        "DisplayName": "Name",
+	"Duration": "Duration",
+        "Activities": "Activities",
+	"Created": "Activity created successfully"
     },
    "user": {
 	"Users": "Users",

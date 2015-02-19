@@ -14,6 +14,11 @@
         <input type="text" class="form-control" id="phone" placeholder="{{ 'client.Phone' | translate }}" ng-model="newClient.phone">
       </div>
 
+        <div class="form-group">
+            <label for="email">{{ 'client.Email' | translate }}</label>
+            <input type="text" class="form-control" id="email" placeholder="{{ 'client.Email' | translate }}" ng-model="newClient.email">
+        </div>
+
       <button type="submit" class="btn btn-default" ng-click="createClient()" ng-disabled="form.$invalid">{{ 'common.Create' | translate }}</button>
     </form>
 

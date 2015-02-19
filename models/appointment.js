@@ -23,7 +23,9 @@ var AppointmentSchema = new Schema({
 		id : {
 			type : String
 		},
-		displayName : String
+		displayName : String,
+		email: String,
+		phone: String
 	},
 	dateAndTime : {
 		type : Date,
@@ -33,7 +35,8 @@ var AppointmentSchema = new Schema({
 		type : Date,
 		required : true
 	},
-	remarks : String
+	remarks : String,
+	status : String
 });
 
 AppointmentSchema.virtual('duration').get(function() {

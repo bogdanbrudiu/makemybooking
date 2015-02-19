@@ -11,11 +11,13 @@ angular.module('makemybooking', [
   'makemybooking.authinterceptor',
   'makemybooking.home',
   'makemybooking.login',
-  'makemybooking.appointments',
+  'makemybooking.public',
+  'makemybooking.publicappointments',
   'makemybooking.appointmentsView',
   'makemybooking.resources',
   'makemybooking.clients',
   'makemybooking.users',
+  'makemybooking.activities',
   'makemybooking.contacts',
   'makemybooking-client-templates'
 ])
@@ -39,10 +41,10 @@ angular.module('makemybooking', [
 
 .controller('AppCtrl', function AppController ($scope, $rootScope, $location, $translate, tmhDynamicLocale, usersession) {
   var defaultPageTitle = 'MakeMyBooking';
-
   $scope.pageTitle = defaultPageTitle;
 
   $scope.$on('$routeChangeSuccess', function (ev, currentRoute) {
+    $scope.currentRoute=currentRoute;
     $scope.pageTitle = currentRoute.title || defaultPageTitle;
   });
 

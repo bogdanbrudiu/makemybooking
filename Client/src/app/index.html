@@ -17,7 +17,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <header class="navbar navbar-default navbar-static-top">
+    <header class="navbar navbar-default navbar-static-top" >
       <div class="container">
         <div class="navbar-header">
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
@@ -26,16 +26,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a href="#/" class="navbar-brand">{{ 'home.appName' | translate }}</a>
+          <a href="#/" class="navbar-brand">{{ 'home.appName' | translate }}{{$location.path()}}</a>
         </div>
         <nav class="collapse navbar-collapse" role="navigation">
-          <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav" ng-show="currentRoute.$$route.originalPath != '/publicappointments/:userId'">
             <!--<li ng-class="{active: routeIs('/appointments')}" ng-show='user.isCustomer()'><a href="#/appointments" translate>{{ 'home.Appointments' | translate }}</a></li>-->
 
  	    <li ng-class="{active: routeIs('/appointmentsView')}" ng-show='user.isCustomer()'><a href="#/appointmentsView" translate>{{ 'home.Appointments' | translate }}</a></li>
 	    <li ng-class="{active: routeIs('/resources')}" ng-show='user.isCustomer()'><a href="#/resources" translate>{{ 'home.Resources' | translate }}</a></li>
-            <li ng-class="{active: routeIs('/clients')}" ng-show='user.isCustomer()'><a href="#/clients" translate>{{ 'home.Clients' | translate }}</a></li>
+        <li ng-class="{active: routeIs('/clients')}" ng-show='user.isCustomer()'><a href="#/clients" translate>{{ 'home.Clients' | translate }}</a></li>
+        <li ng-class="{active: routeIs('/activities')}" ng-show='user.isCustomer()'><a href="#/activities" translate>{{ 'home.Activities' | translate }}</a></li>
 	    <li ng-class="{active: routeIs('/users')}" ng-show='user.isAdmin()'><a href="#/users" translate>{{ 'home.Users' | translate }}</a></li>
+<li ng-show="user.allowsPublic"><a href="#/public" translate>{{ 'home.Public' | translate }}</a></li>
           </ul>
 	  <ul class="nav navbar-nav navbar-right">
           	<li class="dropdown">
@@ -49,12 +51,12 @@
            		</ul>
            	</li>
           </ul>
-          <ul class="nav navbar-nav navbar-right" ng-show="!user.isAuthenticated">
+          <ul class="nav navbar-nav navbar-right" ng-show="!user.isAuthenticated && currentRoute.$$route.originalPath != '/publicappointments/:userId'">
             <li ng-class="{ active: routeIs('/login') }">
               <a href="#/login">{{ 'home.Login' | translate }}</a>
             </li>
           </ul>
-          <ul class="nav navbar-nav navbar-right" ng-show="user.isAuthenticated">
+          <ul class="nav navbar-nav navbar-right" ng-show="user.isAuthenticated && currentRoute.$$route.originalPath != '/publicappointments/:userId'">
             <li class="dropdown">
               <a href="" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <span ng-bind="user.displayName"></span> <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -132,10 +134,13 @@
     <script src="/shared/flash.js"></script>
     <script src="/home/home.js"></script>
     <script src="/shared/makemybookingapi.js"></script>
+    <script src="/activities/activities.js"></script>
     <script src="/appointments/appointments.js"></script>
     <script src="/appointments/appointmentsView.js"></script>
     <script src="/auth/usersession.js"></script>
     <script src="/clients/clients.js"></script>
+    <script src="/public/public.js"></script>
+    <script src="/publicappointments/publicappointments.js"></script>
     <script src="/resources/resources.js"></script>
     <script src="/users/users.js"></script>
     <script src="/auth/authinterceptor.js"></script>

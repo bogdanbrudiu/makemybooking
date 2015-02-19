@@ -9,7 +9,8 @@ function mapUser(dbUser) {
     displayName: dbUser.displayName,
     email: dbUser.email,
     provider: dbUser.provider,
-    roles: dbUser.roles  
+    roles: dbUser.roles,
+    allowsPublic: dbUser.allowsPublic  
 };
   return halUser;
 }

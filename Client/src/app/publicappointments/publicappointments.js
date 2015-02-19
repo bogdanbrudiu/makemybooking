@@ -1,18 +1,18 @@
-angular.module('makemybooking.appointmentsView', [
+angular.module('makemybooking.publicappointments', [
   'ngRoute',
   'makemybooking.api'
 ])
 
 .config(function config($routeProvider) {
   $routeProvider
-    .when('/appointmentsView', {
-      templateUrl: 'appointments/appointmentsView.html',
-      controller: 'AppointmentsViewCtrl',
-      title: 'AppointmentsView'
+    .when('/publicappointments/:userId', {
+      templateUrl: 'publicappointments/publicappointments.html',
+      controller: 'PublicAppointmentsCtrl',
+      title: 'PublicAppointments'
     });
 })
 
-.controller('AppointmentsViewCtrl', function AppointmentsViewController($scope, $window, _, $translate, makemybookingapi, flash, moment) {
+.controller('PublicAppointmentsCtrl', function AppointmentsViewController($scope, $window, _, $translate, makemybookingapi, flash, moment) {
 
     $scope.fwdays = 3;
     $scope.whours = 10;
@@ -35,7 +35,7 @@ angular.module('makemybooking.appointmentsView', [
 
 
         makemybookingapi.apiRoot.then(function (rootResource) {
-            return rootResource.$get('resources').then(function (resourcesResource) { 
+            return rootResource.$get('publicresources', {'userId':$scope.$parent.currentRoute.params.userId}).then(function (resourcesResource) { 
                 return resourcesResource.$get('resources').then(function (resources) { // get embedded resources
                     if (!angular.equals($scope.resources, resources)) {
                         $scope.resources = resources;
@@ -45,22 +45,10 @@ angular.module('makemybooking.appointmentsView', [
                 flash.addError(err.data);
             });
         });
-
-
-        makemybookingapi.apiRoot.then(function (rootResource) {
-            return rootResource.$get('clients').then(function (clientsResource) { 
-                return clientsResource.$get('clients').then(function (clients) { // get embedded appointments
-                    if (!angular.equals($scope.clients, clients)) {
-                        $scope.clients = clients;
-                    }
-                });
-            }, function (err) {
-                flash.addError(err.data);
-            });
-        });
+      
 
         makemybookingapi.apiRoot.then(function (rootResource) {
-            return rootResource.$get('activities').then(function (activitiesResource) {
+            return rootResource.$get('publicactivities', {'userId':$scope.$parent.currentRoute.params.userId}).then(function (activitiesResource) {
                 return activitiesResource.$get('activities').then(function (activities) { // get embedded appointments
                     if (!angular.equals($scope.activities, activities)) {
                         $scope.activities = activities;
@@ -72,7 +60,7 @@ angular.module('makemybooking.appointmentsView', [
         });
 
         $scope.appointmentsPromise = makemybookingapi.apiRoot.then(function (rootResource) {
-            return rootResource.$get('appointments').then(function (appointmentsResource) {
+            return rootResource.$get('publicappointments', {'userId':$scope.$parent.currentRoute.params.userId}).then(function (appointmentsResource) {
                 return appointmentsResource.$get('appointments').then(function (appointments) { // get embedded appointments
                     $scope.appointments = appointments;
                     $scope.refreshBusy(appointments);
@@ -214,7 +202,7 @@ angular.module('makemybooking.appointmentsView', [
 
     $scope.beforeRender = function ($view, $dates, $leftDate, $upDate, $rightDate) {
         
- $scope.appointmentsPromise.then(function(appointments) {
+       $scope.appointmentsPromise.then(function(appointments) {
                     appointments.forEach(function (appointment){
                         $dates.forEach(function (date){
 

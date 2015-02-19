@@ -98,7 +98,7 @@ gulp.task('build-all', ['config', 'fonts', 'styles', 'templates'], index);
 
 function index () {
   var opt = {read: false};
-  return gulp.src('./src/app/index.html')
+  return gulp.src(['./src/app/index.html'])
     .pipe(g.inject(g.bowerFiles(opt), {ignorePath: 'bower_components', starttag: '<!-- inject:vendor:{{ext}} -->'}))
     .pipe(g.inject(es.merge(appFiles(), cssFiles(opt)), {ignorePath: ['.tmp', 'src/app']}))
     .pipe(gulp.dest('./src/app/'))
@@ -106,6 +106,7 @@ function index () {
     .pipe(gulp.dest('./.tmp/'))
     .pipe(livereload());
 }
+
 
 /**
  * Assets
@@ -164,7 +165,7 @@ gulp.task('clean-dist', function () {
  * Dist
  */
 gulp.task('dist', ['config', 'vendors', 'assets', 'i18n', 'fonts-dist', 'styles-dist', 'scripts-dist'], function () {
-  return gulp.src('./src/app/index.html')
+  return gulp.src(['./src/app/index.html'])
     .pipe(g.inject(gulp.src('../public/vendors.min.js'), {addRootSlash: false, ignorePath: 'vagrant/MakeMyBooking/public', starttag: '<!-- inject:vendor:js -->'}))
     .pipe(g.inject(gulp.src('../public/styles/vendors.min.css'), {addRootSlash: false, ignorePath: 'vagrant/MakeMyBooking/public', starttag: '<!-- inject:vendor:css -->'}))
     .pipe(g.inject(gulp.src('../public/' + bower.name + '-' + bower.version + '.min.js'), {addRootSlash: false, ignorePath: 'vagrant/MakeMyBooking/public'}))

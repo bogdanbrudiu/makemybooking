@@ -13,6 +13,7 @@ function mapAppointment(dbAppointment) {
     duration: dbAppointment.duration,
     remarks: dbAppointment.remarks,
     resource: dbAppointment.resource,
+    status: dbAppointment.status,
     client: dbAppointment.client
   };
   if(dbAppointment.resource){
@@ -20,6 +21,25 @@ function mapAppointment(dbAppointment) {
   }
   if(dbAppointment.client){
 	  halAppointment._links.client = { href: '/api/clients/' + dbAppointment.client.id, title: dbAppointment.client.displayName };
+  }
+  return halAppointment;
+}
+
+function mapPublicAppointment(dbAppointment) {
+  var halAppointment = {
+    _links: {
+      self: { href: '/api/appointments/' + dbAppointment.id },
+      user: { href: '/api/users/' + dbAppointment.user.id, title: dbAppointment.user.displayName }
+    },
+    id: dbAppointment.id,
+    title: dbAppointment.title,
+    dateAndTime: dbAppointment.dateAndTime,
+    endDateAndTime: dbAppointment.endDateAndTime,
+    duration: dbAppointment.duration,
+    status: dbAppointment.status
+  };
+  if(dbAppointment.resource){
+	  halAppointment._links.resource = { href: '/api/resources/' + dbAppointment.resource.id, title: dbAppointment.resource.displayName };
   }
   return halAppointment;
 }
@@ -113,6 +133,122 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function (req, res) {
+  var appointmentId = req.params.id;
+  Appointment.findById(appointmentId, function(err, dbAppointment) {
+    if (err) {
+      throw err;
+    }
+    if (dbAppointment === null) {
+      res.status(404).send({ message: 'Appointment can not be found' });
+    } 
+    else {
+      dbAppointment.remove(function (err) {
+        if (err) {
+          res.status(400).send(err);
+          return;
+        }
+        res.status(200).send({ message: 'Appointment deleted' } );
+      })
+    }
+  });
+};
+
+exports.publiccreate = function (req, res) {
+  var newAppointment = new Appointment(req.body);
+  newAppointment.user.id = req.user.id;
+  newAppointment.user.displayName = req.user.displayName;
+try{
+  if(req.body.client == undefined || req.body.client.email == undefined ){
+	res.status(422).send("Client email is mandatory for public appointment!");
+	return;
+  }
+}catch(ex){console.log(ex)}
+  newAppointment.client.email = req.body.client.email;
+  newAppointment.save(function (err, savedAppointment) {
+    if (err) {
+      if (err.name === 'ValidationError') {
+        res.status(422).send(err);
+      }
+      else {
+        res.status(400).send(err);
+      }
+      return;
+    }
+    res.set('Location', '/api/publicappointments/' + savedAppointment.id);
+    res.status(201).send(mapPublicAppointment(savedAppointment));
+  });
+};
+
+exports.publicgetById = function (req, res) {
+  var appointmentId = req.params.id;
+  Appointment.findById(appointmentId, function(err, dbAppointment) {
+    if (err) {
+      throw err;
+    }
+    if (dbAppointment === null) {
+      res.status(404).send({ message: 'Appointment can not be found' });
+    } 
+    else {
+      res.status(200).send(mapPublicAppointment(dbAppointment));
+    }
+  });
+};
+
+exports.publicgetByUser = function (req, res) {
+  var result = {
+    _links: {
+      self: { href: '/api/publicappointments' }
+    },
+    _embedded: {
+      appointments: []
+    },
+    count: 0
+  };
+  var userId = req.params.userId;
+  Appointment
+    .find({ 'user.id': userId })
+    .sort('-dateAndTime')
+    .exec(function (err, appointments) {
+      if (err) {
+        throw err;
+      }
+      result.count = appointments.length;
+      for (var i = 0; i < result.count; i++) {
+        result._embedded.appointments.push(mapPublicAppointment(appointments[i]));
+      }
+      res.status(200).send(result);
+    });  
+};
+
+exports.publicupdate = function (req, res) {
+  var appointmentId = req.params.id;
+  Appointment.findById(appointmentId, function(err, dbAppointment) {
+    if (err) {
+      throw err;
+    }
+    if (dbAppointment === null) {
+      res.status(404).send({ message: 'Appointment can not be found' });
+    } 
+    else {
+      // maybe we should add a check for a complete object in case of a PUT request?
+      dbAppointment.set(req.body) // updated object values from request body.
+      dbAppointment.save(function (err, updatedDbAppointment) {
+        if (err) {
+          if (err.name === 'ValidationError') {
+            res.status(422).send(err);
+          }
+          else {
+            res.status(400).send(err);
+          }
+          return;
+        }
+        res.status(200).send(mapPublicAppointment(updatedDbAppointment));
+      })
+    }
+  });
+};
+
+exports.publicdelete = function (req, res) {
   var appointmentId = req.params.id;
   Appointment.findById(appointmentId, function(err, dbAppointment) {
     if (err) {

@@ -19,7 +19,8 @@ angular.module('makemybooking.usersession', [
     },
     isCustomer: function() {
       return this.isInRole('customer');
-    }
+    },
+    allowsPublic: false
   };
 
   function Session() {
@@ -38,6 +39,7 @@ angular.module('makemybooking.usersession', [
         currentSession.userId = userResource.userId;
         currentSession.displayName = userResource.displayName;
         currentSession.roles = userResource.roles;
+        currentSession.allowsPublic = userResource.allowsPublic;
         $rootScope.$broadcast('event:loggedin', currentSession);
       }, function (err) {
         flash.add(err.message, 'error');
@@ -70,6 +72,7 @@ angular.module('makemybooking.usersession', [
         usersession.current.userId = userResource.userId;
         usersession.current.displayName = userResource.displayName;
         usersession.current.roles = userResource.roles;
+        usersession.current.allowsPublic = userResource.allowsPublic;
         $rootScope.$broadcast('event:loggedin', usersession.current);
       }, function (err) {
         $log.info('Unable to login automatically: ' + err.message);

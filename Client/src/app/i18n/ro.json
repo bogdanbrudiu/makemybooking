@@ -8,33 +8,43 @@
   	"Appointments": "Programări",
         "Resources": "Resurse",
         "Clients": "Clienţi",
+        "Activities": "Activităţi",
         "Users": "Utilizatori",
         "Login": "Autentificare",
         "Logout": "Deconectare",
+        "Public": "Public",
 	"home": "<p>Bine ati venit!<p></br><p>MakeMyBooking.co este o aplicatie utila pentru efectuarea/administrarea programarilor de orice tip:</br>Coafura, Frizerie, Manichiura, Pedichiura, Machiaje profesionale, Tatuaje, Masaj etc.</p><p>Fie ca ai o afacere mica si lucrezi de unul singur, fie ca ai o echipa mai mare, poti utiliza MakeMyBooking.co - o aplicatie usor de folosit!</p><p>Pentru mai multe informatii : mobil:  +40 723 345 332, e-mail: bogdan@brudiu.ro</p><p>Pentru teste folositi <br/><br/>Email: <b>demo</b> <br/>Parola: <b>demo</b></p>"
     }, 
     "common": {
-        "Create": "Crează",
+        "Create": "Creează",
   	"Remove": "Sterge",
         "None": "Lista goală",
 	"AreYouSure": "Sunteţi sigur?"
     },
    "resource": {
-	"CreateNew": "Crează o resursa nouă",
+	"CreateNew": "Creează o resursa nouă",
         "DisplayName": "Nume",
         "Resources": "Resurse",
 	"Created": "Resursa creeată cu succes"
     },
-   "client": {
-	"CreateNew": "Crează un client nou",
+    "client": {
+        "CreateNew": "Creează un client nou",
         "DisplayName": "Nume",
-	"Phone": "Telefon",
+        "Phone": "Telefon",
+        "Email": "Email",
         "Clients": "Clienţi",
-	"Created": "Client creeat cu succes"
+        "Created": "Client creeat cu succes"
+    },
+    "activity": {
+	"CreateNew": "Creează o activitate nouă",
+        "DisplayName": "Nume",
+	"Duration": "Durată",
+        "Activities": "Activităţi",
+	"Created": "Activitate creeată cu succes"
     },
    "user": {
 	"Users": "Utilizatori",
-	"CreateNew": "Crează un utilizator nou",
+	"CreateNew": "Creează un utilizator nou",
         "DisplayName": "Nume",
 	"Email": "Email",
         "Provider": "Furnizor",
@@ -44,7 +54,7 @@
    "appointment": {
 	"Upcoming": "Programări următoare",
 	"Past": "Programări trecute",
-	"CreateNew": "Crează o programare nouă",
+	"CreateNew": "Creează o programare nouă",
 	"Reschedule": "Reprogramează",
 	"DisplayName": "Introduceţi descrierea programarii",
 	"DateTime": "Ziua şi ora programarii",

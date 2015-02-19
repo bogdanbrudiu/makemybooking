@@ -8,6 +8,7 @@ var me = require('./routehandlers/me');
 var appointments = require('./routehandlers/appointments');
 var resources = require('./routehandlers/resources');
 var clients = require('./routehandlers/clients');
+var activities = require('./routehandlers/activities');
 var users = require('./routehandlers/users');
 
 
@@ -62,6 +63,19 @@ router.route('/api/appointments/:id')
   .patch(middleware.sanitizeRequestBody, appointments.update)
   .delete(appointments.delete);
 
+
+router.route('/api/publicappointments/:userId')
+  .all(middleware.ensureAllowsPublic)
+  .get(appointments.publicgetByUser)
+  .post(middleware.sanitizeRequestBody, appointments.publiccreate);
+
+router.route('/api/publicappointments/:userId/:email/:id')
+  .all(middleware.ensureAllowsPublic)
+  .get(appointments.publicgetById)
+  .put(middleware.ensureKnowsSecret, middleware.sanitizeRequestBody, appointments.publicupdate)
+  .patch(middleware.ensureKnowsSecret, middleware.sanitizeRequestBody, appointments.publicupdate)
+  .delete(middleware.ensureKnowsSecret,appointments.publicdelete);
+
 //Resources
 router.route('/api/resources')
   .all(middleware.ensureAuthenticated)
@@ -74,6 +88,14 @@ router.route('/api/resources/:id')
   .put(middleware.sanitizeRequestBody, resources.update)
   .patch(middleware.sanitizeRequestBody, resources.update)
   .delete(resources.delete);
+
+router.route('/api/publicresources/:userId')
+  .all(middleware.ensureAllowsPublic)
+  .get(resources.getByUser);
+
+router.route('/api/publicresources/:userId/:id')
+  .all(middleware.ensureAllowsPublic)
+  .get(resources.getById);
 
 //Clients
 router.route('/api/clients')
@@ -88,7 +110,27 @@ router.route('/api/clients/:id')
   .patch(middleware.sanitizeRequestBody, clients.update)
   .delete(clients.delete);
 
+//Activities
+router.route('/api/activities')
+  .all(middleware.ensureAuthenticated)
+  .get(activities.getByUser)
+  .post(middleware.sanitizeRequestBody, activities.create);
 
+router.route('/api/activities/:id')
+  .all(middleware.ensureAuthenticated)
+  .get(activities.getById)
+  .put(middleware.sanitizeRequestBody, activities.update)
+  .patch(middleware.sanitizeRequestBody, activities.update)
+  .delete(activities.delete);
+
+
+router.route('/api/publicactivities/:userId')
+  .all(middleware.ensureAllowsPublic)
+  .get(activities.getByUser);
+
+router.route('/api/publicactivities/:userId/:id')
+  .all(middleware.ensureAllowsPublic)
+  .get(activities.getById);
 
 //Users
 router.route('/api/users')
