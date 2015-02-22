@@ -3,8 +3,7 @@ var Schema = mongoose.Schema;
 
 var AppointmentSchema = new Schema({
 	title : {
-		type : String,
-		required : 'Appointment description is required'
+		type : String//,required : 'Appointment description is required'
 	},
 	user : {
 		id : {

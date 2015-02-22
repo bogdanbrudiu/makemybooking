@@ -99,6 +99,17 @@ exports.ensureIsAdmin =  function (req, res, next) {
 		notAuthenticated(req, res,'Not enough permissions.'); 
 	}
 }
+exports.ensureIsAdminOrSelf =  function (req, res, next) {
+	if(req.user.isInRole('admin')){
+		next();
+	}else{
+		if(req.user.id == req.params.id){
+			next();
+		}else{
+			notAuthenticated(req, res,'Not enough permissions.'); 
+		}
+	}
+}
 exports.sanitizeRequestBody = function (req, res, next) {
   if (req.body) {
     for (var prop in req.body) {

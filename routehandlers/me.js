@@ -9,7 +9,8 @@ module.exports = function (req, res) {
     email: user.email,
     displayName: user.displayName,
     roles: user.roles,
-    allowsPublic: user.allowsPublic
+    allowsPublic: user.allowsPublic,
+    settings: user.settings    
   };
   res.status(200).send(result);
 }

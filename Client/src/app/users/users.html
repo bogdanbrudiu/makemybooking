@@ -25,6 +25,10 @@
         <input type="password" class="form-control" id="password" placeholder="{{ 'user.Password' | translate }}" ng-model="newUser.password">
       </div>
 
+        <div class="form-group">
+            <label for="allowsPublic"><input type="checkbox" id="allowsPublic" ng-model="newUser.allowsPublic"> {{ 'user.AllowsPublic' | translate }}</label>
+        </div>
+
       <button type="submit" class="btn btn-default" ng-click="createUser()" ng-disabled="form.$invalid">{{ 'common.Create' | translate }}</button>
     </form>
 

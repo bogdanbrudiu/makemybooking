@@ -33,7 +33,9 @@ angular.module('makemybooking.login', [
 
 }	
   $window.addEventListener('message', function (event) {
-    if (event.origin !== config.defaultApiEndpoint) {
+      if (event.origin+"/api" !== config.defaultApiEndpoint) {
+          console.log("Origin:" + event.origin);
+          console.log("DefaultApiEndpoint" + config.defaultApiEndpoint);
       return;
     }
     $rootScope.authLogin(event.data);

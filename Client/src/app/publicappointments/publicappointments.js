@@ -14,7 +14,7 @@ angular.module('makemybooking.publicappointments', [
 
 .controller('PublicAppointmentsCtrl', function AppointmentsViewController($scope, $window, _, $translate, makemybookingapi, flash, moment) {
 
-    $scope.fwdays = 3;
+    $scope.fwdays = 7;
     $scope.whours = 10;
     $scope.granularity = 10;
     $scope.celsMerge = 3;
@@ -159,7 +159,7 @@ angular.module('makemybooking.publicappointments', [
         return makemybookingapi.apiRoot.then(function (rootResource) {
             // Sync endDateAndTime first
             $scope.newAppointment.endDateAndTime = moment($scope.newAppointment.dateAndTime).add($scope.newAppointment.duration, 'minutes');
-            return rootResource.$post('appointments', null, $scope.newAppointment).then(function () {
+            return rootResource.$post('publicappointments', { "userId": $scope.$parent.currentRoute.params.userId, "email": $scope.newAppointment.client.email }, $scope.newAppointment).then(function () {
                 flash.add($translate.instant('appointment.Created'), 'info');
                 initAppointment();
             }, function (err) {

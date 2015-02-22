@@ -13,6 +13,12 @@ var UserSchema = new Schema({
   provider: { type: String, required: true },
   allowsPublic: Boolean,
   password: String,
+  settings: {
+	fwdays : Number,
+	whours : Number,
+	granularity : Number,
+	startingh : Number,
+  },
   providerAccessToken: String,
   providerRefreshToken: String,
   created: { type: Date, default: Date.now },

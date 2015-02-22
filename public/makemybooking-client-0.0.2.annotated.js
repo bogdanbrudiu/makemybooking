@@ -67,7 +67,7 @@ angular.module('makemybooking.contacts', ['googleApi']).config([
     };
   }
 ]);
-angular.module('makemybooking.config', []).constant('config', { 'defaultApiEndpoint': '/api' }).constant('appName', 'makemybooking-client').constant('appVersion', '0.0.1').constant('appDescription', 'MakeMyBooking.co');
+angular.module('makemybooking.config', []).constant('config', { 'defaultApiEndpoint': '/api' }).constant('appName', 'makemybooking-client').constant('appVersion', '0.0.2').constant('appDescription', 'MakeMyBooking.co');
 ;
 'use strict';
 angular.module('ngLocale', [], [
@@ -460,19 +460,6 @@ angular.module('ngLocale', [], [
   module.run([
     '$templateCache',
     function ($templateCache) {
-      $templateCache.put('shared/flash.html', '<section ng-controller="FlashCtrl" class="flashcontainer"><div ng-repeat="flashMessage in flashMessages" ng-class="getMessageClass(flashMessage.level)"><button type="button" class="close" data-dismiss="alert" ng-click="dismiss(flashMessage)">&times;</button> {{flashMessage.message}}<ul ng-if="flashMessage.details.errors"><li ng-repeat="error in flashMessage.details.errors">{{error.message}}</li></ul></div></section>');
-    }
-  ]);
-}());
-(function (module) {
-  try {
-    module = angular.module('makemybooking-client-templates');
-  } catch (e) {
-    module = angular.module('makemybooking-client-templates', []);
-  }
-  module.run([
-    '$templateCache',
-    function ($templateCache) {
       $templateCache.put('users/myaccount.html', '<div class="row"><div class="col-md-6"><h2>{{ \'home.MyAccount\' | translate }}</h2><form role="form" name="form"><div class="form-group"><label for="displayName">{{ \'user.DisplayName\' | translate }}</label><input class="form-control" id="displayName" placeholder="{{ \'user.DisplayName\' | translate }}" ng-model="myUser.displayName"></div><div class="form-group"><label for="email">{{ \'user.Email\' | translate }}</label><input class="form-control" id="email" placeholder="{{ \'user.Email\' | translate }}" ng-model="myUser.email"></div><div class="form-group"><label for="password">{{ \'user.Password\' | translate }}</label><input type="password" class="form-control" id="password" placeholder="{{ \'user.Password\' | translate }}" ng-model="myUser.password"></div><div class="form-group"><label for="allowsPublic"><input type="checkbox" id="allowsPublic" ng-model="myUser.allowsPublic"> {{ \'user.AllowsPublic\' | translate }}</label></div><hr><div class="form-group"><label for="fwdays">{{ \'user.fwdays\' | translate }}</label><input class="form-control" id="fwdays" placeholder="{{ \'user.fwdays\' | translate }}" ng-model="myUser.settings.fwdays"></div><div class="form-group"><label for="whours">{{ \'user.whours\' | translate }}</label><input class="form-control" id="whours" placeholder="{{ \'user.whours\' | translate }}" ng-model="myUser.settings.whours"></div><div class="form-group"><label for="granularity">{{ \'user.granularity\' | translate }}</label><input class="form-control" id="granularity" placeholder="{{ \'user.granularity\' | translate }}" ng-model="myUser.settings.granularity"></div><div class="form-group"><label for="startingh">{{ \'user.startingh\' | translate }}</label><input class="form-control" id="startingh" placeholder="{{ \'user.startingh\' | translate }}" n ng-model="myUser.settings.startingh"></div><button type="submit" class="btn btn-default" ng-click="updateUser()" ng-disabled="form.$invalid">{{ \'common.Update\' | translate }}</button></form></div></div>');
     }
   ]);
@@ -487,6 +474,19 @@ angular.module('ngLocale', [], [
     '$templateCache',
     function ($templateCache) {
       $templateCache.put('users/users.html', '<div class="row"><div class="col-md-6"><h2>{{ \'user.CreateNew\' | translate }}</h2><form role="form" name="form"><div class="form-group"><label for="displayName">{{ \'user.DisplayName\' | translate }}</label><input class="form-control" id="displayName" placeholder="{{ \'user.DisplayName\' | translate }}" ng-model="newUser.displayName"></div><div class="form-group"><label for="email">{{ \'user.Email\' | translate }}</label><input class="form-control" id="email" placeholder="{{ \'user.Email\' | translate }}" ng-model="newUser.email"></div><div class="form-group"><label for="provider">{{ \'user.Provider\' | translate }}</label><input class="form-control" id="provider" placeholder="{{ \'user.Provider\' | translate }}" ng-model="newUser.provider"></div><div class="form-group"><label for="password">{{ \'user.Password\' | translate }}</label><input type="password" class="form-control" id="password" placeholder="{{ \'user.Password\' | translate }}" ng-model="newUser.password"></div><div class="form-group"><label for="allowsPublic"><input type="checkbox" id="allowsPublic" ng-model="newUser.allowsPublic"> {{ \'user.AllowsPublic\' | translate }}</label></div><button type="submit" class="btn btn-default" ng-click="createUser()" ng-disabled="form.$invalid">{{ \'common.Create\' | translate }}</button></form></div><div class="col-md-6"><h2>{{ \'user.Users\' | translate }}</h2><p ng-if="users.length === 0">-- {{ \'common.None\' | translate }} --</p><ul class="list-group"><li class="list-group-item" ng-repeat="user in users"><div><div class="dropdown"><a href="" class="pull-right" ng-click="removeUser(user)" title="{{ \'common.Remove\' | translate }}"><span class="glyphicon glyphicon-remove"></span></a></div></div><h4 class="list-group-item-heading">{{user.displayName}} <small>{{user.provider}}</small></h4><p class="list-group-item-text">{{user.email}}</p><p class="list-group-item-text">{{user.roles.join(\', \')}}</p></li></ul></div></div>');
+    }
+  ]);
+}());
+(function (module) {
+  try {
+    module = angular.module('makemybooking-client-templates');
+  } catch (e) {
+    module = angular.module('makemybooking-client-templates', []);
+  }
+  module.run([
+    '$templateCache',
+    function ($templateCache) {
+      $templateCache.put('shared/flash.html', '<section ng-controller="FlashCtrl" class="flashcontainer"><div ng-repeat="flashMessage in flashMessages" ng-class="getMessageClass(flashMessage.level)"><button type="button" class="close" data-dismiss="alert" ng-click="dismiss(flashMessage)">&times;</button> {{flashMessage.message}}<ul ng-if="flashMessage.details.errors"><li ng-repeat="error in flashMessage.details.errors">{{error.message}}</li></ul></div></section>');
     }
   ]);
 }());

@@ -4,9 +4,13 @@
 
     <form role="form" name="form">
       <div class="form-group">
+          <label for="title">{{ 'appointment.DisplayName' | translate }}</label>
         <input type="text" class="form-control" id="title" placeholder="{{ 'appointment.DisplayName' | translate }}" ng-model="newAppointment.title">
       </div>
-
+        <div class="form-group">
+            <label for="email">{{ 'appointment.Email' | translate }}</label>
+            <input type="text" class="form-control" id="email" placeholder="{{ 'client.Email' | translate }}" ng-model="newAppointment.client.email">
+        </div>
         <tabset justified="true" >
             <!--<tab heading="All" ng-click="newAppointment.resource = null">Static content</tab>-->
             <tab ng-repeat="resource in resources" heading="{{resource.displayName}}" ng-click="updateResource(resource)">

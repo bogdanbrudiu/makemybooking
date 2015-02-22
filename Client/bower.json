@@ -4,7 +4,7 @@
     "/dist/makemybooking-client.min.js",
     "/dist/makemybooking-client.min.css"
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "MakeMyBooking.co",
   "authors": [
     "Bogdan-Ioan BRUDIU"
@@ -22,6 +22,7 @@
     "bootstrap": "~3.2",
     "angular": "~1.3",
     "angular-route": "~1.3",
+    "angular-resource": "~1.3",
     "angular-hal": "~0.1.5",
     "lodash": "~2.4.1",
     "moment": "~2.8.3",

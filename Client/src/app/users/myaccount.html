@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-md-6">
+    <h2>{{ 'home.MyAccount' | translate }}</h2>
+
+    <form role="form" name="form">
+     
+      <div class="form-group">
+        <label for="displayName">{{ 'user.DisplayName' | translate }}</label>
+        <input type="text" class="form-control" id="displayName" placeholder="{{ 'user.DisplayName' | translate }}" ng-model="myUser.displayName">
+      </div>
+
+      <div class="form-group">
+        <label for="email">{{ 'user.Email' | translate }}</label>
+        <input type="text" class="form-control" id="email" placeholder="{{ 'user.Email' | translate }}" ng-model="myUser.email">
+      </div>
+
+
+      <div class="form-group">
+        <label for="password">{{ 'user.Password' | translate }}</label>
+        <input type="password" class="form-control" id="password" placeholder="{{ 'user.Password' | translate }}" ng-model="myUser.password">
+      </div>
+
+        <div class="form-group">
+            <label for="allowsPublic"><input type="checkbox" id="allowsPublic" ng-model="myUser.allowsPublic"> {{ 'user.AllowsPublic' | translate }}</label>
+        </div>
+
+        <hr />
+
+        <div class="form-group">
+            <label for="fwdays">{{ 'user.fwdays' | translate }}</label>
+            <input type="text" class="form-control" id="fwdays" placeholder="{{ 'user.fwdays' | translate }}" ng-model="myUser.settings.fwdays">
+        </div>
+        <div class="form-group">
+            <label for="whours">{{ 'user.whours' | translate }}</label>
+            <input type="text" class="form-control" id="whours" placeholder="{{ 'user.whours' | translate }}" ng-model="myUser.settings.whours">
+        </div>
+        <div class="form-group">
+            <label for="granularity">{{ 'user.granularity' | translate }}</label>
+            <input type="text" class="form-control" id="granularity" placeholder="{{ 'user.granularity' | translate }}" ng-model="myUser.settings.granularity">
+        </div>
+        <div class="form-group">
+            <label for="startingh">{{ 'user.startingh' | translate }}</label>
+            <input type="text" class="form-control" id="startingh" placeholder="{{ 'user.startingh' | translate }}" n ng-model="myUser.settings.startingh">
+        </div>
+
+      <button type="submit" class="btn btn-default" ng-click="updateUser()" ng-disabled="form.$invalid">{{ 'common.Update' | translate }}</button>
+    </form>
+
+  </div>
+</div>

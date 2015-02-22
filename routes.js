@@ -141,11 +141,10 @@ router.route('/api/users')
 
 router.route('/api/users/:id')
   .all(middleware.ensureAuthenticated)
-  .all(middleware.ensureIsAdmin)
-  .get(users.getById)
-  .put(middleware.sanitizeRequestBody, users.update)
-  .patch(middleware.sanitizeRequestBody, users.update)
-  .delete(users.delete);
+  .get(middleware.ensureIsAdminOrSelf, users.getById)
+  .put(middleware.ensureIsAdminOrSelf, middleware.sanitizeRequestBody, users.update)
+  .patch(middleware.ensureIsAdminOrSelf, middleware.sanitizeRequestBody, users.update)
+  .delete(middleware.ensureIsAdmin, users.delete);
 
 // --
 module.exports.router = router;

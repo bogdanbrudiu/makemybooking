@@ -36,10 +36,11 @@ function mapPublicAppointment(dbAppointment) {
     dateAndTime: dbAppointment.dateAndTime,
     endDateAndTime: dbAppointment.endDateAndTime,
     duration: dbAppointment.duration,
+    resource: dbAppointment.resource,
     status: dbAppointment.status
   };
   if(dbAppointment.resource){
-	  halAppointment._links.resource = { href: '/api/resources/' + dbAppointment.resource.id, title: dbAppointment.resource.displayName };
+	  halAppointment._links.resource = { href: '/api/publicresources/' + dbAppointment.resource.id, title: dbAppointment.resource.displayName };
   }
   return halAppointment;
 }
@@ -159,7 +160,7 @@ exports.publiccreate = function (req, res) {
   newAppointment.user.displayName = req.user.displayName;
 try{
   if(req.body.client == undefined || req.body.client.email == undefined ){
-	res.status(422).send("Client email is mandatory for public appointment!");
+	res.status(422).send({"message":"Client email is mandatory for public appointment!"});
 	return;
   }
 }catch(ex){console.log(ex)}
