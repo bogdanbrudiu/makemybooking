@@ -61,6 +61,7 @@
         "startingh": "Oră de deschidere"
     },
     "appointment": {
+        "Appointments": "Programări",
         "Upcoming": "Programări următoare",
         "Past": "Programări trecute",
         "CreateNew": "Creează o programare nouă",

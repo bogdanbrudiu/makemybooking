@@ -18,8 +18,6 @@ exports.create = function (req, res) {
   var newClient = new Client(req.body);
   newClient.user.id = req.user.id;
   newClient.user.displayName = req.user.displayName;
-  newClient.user.email = req.user.email;
-  newClient.user.phone = req.user.phone;
   newClient.save(function (err, savedClient) {
     if (err) {
       if (err.name === 'ValidationError') {

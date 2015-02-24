@@ -12,7 +12,7 @@ angular.module('makemybooking.appointmentsView', [
     });
 })
 
-.controller('AppointmentsViewCtrl', function AppointmentsViewController($scope, $window, _, $translate, makemybookingapi, flash, moment) {
+.controller('AppointmentsViewCtrl', function AppointmentsViewController($scope, $window, _, $translate, $filter, $compile, makemybookingapi, flash, moment) {
 
     $scope.fwdays = 3;
     $scope.whours = 10;
@@ -96,6 +96,11 @@ angular.module('makemybooking.appointmentsView', [
     $scope.refreshBusy = function (appointments) {
         //$('.bootstraptable').bootstrapTable('destroy');
         $('td').removeClass("isbusy");
+
+        $('td:not(:first-child)').css('display', '');
+        $('td:not(:first-child)').removeAttr("colspan");
+        $('td:not(:first-child)').removeAttr("rowspan");
+        $('td:not(:first-child)').html("&nbsp;");
         appointments.forEach(function (appointment) {
             if (appointment.resource) {
                 appDate = new Date(appointment.dateAndTime);
@@ -104,15 +109,34 @@ angular.module('makemybooking.appointmentsView', [
                 today.setHours(0, 0, 0, 0);
                 day = (appDate - today) / (1000 * 60 * 60 * 24);
 
-                for (i = 0; i < appointment.duration / $scope.granularity; i++) {
+                //for (i = 0; i < appointment.duration / $scope.granularity; i++) {
+                i = 0;
                     min = new Date(appointment.dateAndTime).getMinutes() + i * $scope.granularity;
                     hour = new Date(appointment.dateAndTime).getHours() + Math.floor(min / 60);
                     time = hour + "-" + (min % 60 == 0 ? "00" : min % 60);
                     
                     $('td[id^="cell_' + day + '_' + time + '_' + (appointment.resource ? appointment.resource.id : '') + '"]').addClass("isbusy");
-                }
+                    $myscope = $scope;
+                    $myscope.appointment = appointment;
+                    $('td[id^="cell_' + day + '_' + time + '_' + (appointment.resource ? appointment.resource.id : '') + '"]').html($compile("<div><div class=\"dropdown\"><a href=\"\" class=\"pull-right\" ng-click=\"removeAppointment(appointment)\" title=\"{{ 'common.Remove' | translate }}\"><span class=\"glyphicon glyphicon-remove\"></span></a></div></div>           <small style=\"color:orange\">{{appointment.status}}</small> {{appointment.client.displayName}}<small>/{{appointment.resource.displayName}}</small> {{appointment.title}} <small>{{appointment.dateAndTime | date:'d MMM, y H:mm'}}-{{appointment.endDateAndTime | date:'H:mm'}}, duration {{appointment.duration}} mins</small>          ")($myscope));
+
+                 
+
+
+
+                    $('#' + appointment.resource.id).bootstrapTable('mergeCells', {
+                        index: $scope.times.indexOf(hour + ":" + (min % 60 == 0 ? "00" : min % 60)),
+                        field: day + 1,
+                        rowspan: Math.ceil(appointment.duration / $scope.granularity)
+                    });
+
+                    if (appointment.status != undefined) {
+                        $('td[id^="cell_' + day + '_' + time + '_' + (appointment.resource ? appointment.resource.id : '') + '"]').addClass("notAccepted");
+                    }
+                //}
             }
         });
+
     }
 
 
@@ -213,20 +237,36 @@ angular.module('makemybooking.appointmentsView', [
     };
 
     $scope.beforeRender = function ($view, $dates, $leftDate, $upDate, $rightDate) {
-        
+
  $scope.appointmentsPromise.then(function(appointments) {
                     appointments.forEach(function (appointment){
                         $dates.forEach(function (date){
-
-                            if(appointments.filter(
-                                function (element){ 
-                                    if(date.dateValue+new Date().getTimezoneOffset()*60*1000 >= Date.parse(element.dateAndTime) &&
-                                       date.dateValue+new Date().getTimezoneOffset()*60*1000 < Date.parse(element.endDateAndTime))
-                            {	 
+                            if ($view == "hour") {
+                                var count = 0;
+                                for (i = 0; i < 60; i = i + $scope.granularity) {
+                                    if (appointments.filter(
+                                   function (element) {
+                                       if (date.dateValue + new Date().getTimezoneOffset() * 60 * 1000 + i  * 60 * 1000 >= Date.parse(element.dateAndTime) &&
+                                          date.dateValue + new Date().getTimezoneOffset() * 60 * 1000 + i  * 60 * 1000 < Date.parse(element.endDateAndTime)) {
                                         return element;
-                            }
-                            }).length>0){
-                                $dates[$dates.indexOf(date)].selectable = false;
+                                    }
+                                    }).length > 0) {
+                                        count++;
+                                    }
+                                }
+                                if (count == 60 / $scope.granularity) {
+                                    $dates[$dates.indexOf(date)].selectable = false;
+                                }
+                            } else {
+                                if (appointments.filter(
+                                    function (element) {
+                                        if (date.dateValue + new Date().getTimezoneOffset() * 60 * 1000 >= Date.parse(element.dateAndTime) &&
+                                           date.dateValue + new Date().getTimezoneOffset() * 60 * 1000 < Date.parse(element.endDateAndTime)) {
+                                            return element;
+                                }
+                                }).length > 0) {
+                                    $dates[$dates.indexOf(date)].selectable = false;
+                                }
                             }
 
 
@@ -243,25 +283,12 @@ angular.module('makemybooking.appointmentsView', [
     return {
         link: function (scope, elem, attrs, ctrl) {
             var bootstrapTable = function () {
-                scope.appointmentsPromise.then(function () {
+                scope.appointmentsPromise.then(function (appointments) {
                     if (!angular.element(elem).hasClass("bootstrapTable")) {
                         angular.element(elem).bootstrapTable();
                         angular.element(elem).addClass("bootstrapTable");
-                        scope.times.forEach(function (time, index, times) {
-                            if (index % scope.celsMerge ==1) {
-                                angular.element(elem).bootstrapTable('mergeCells', {
-                                    index: index - 1,
-                                    field: 0,
-                                    rowspan: scope.celsMerge
-                                });
-                                if (index % (60 / scope.granularity) == 1) {
-                                    angular.element(elem).find('#tr_id' + (index - 1)).addClass('highlighthour');
-                                } else {
-                                    angular.element(elem).find('#tr_id' + (index - 1)).addClass('highlight');
-                                }
-                            }
-                           
-                        });
+
+                      
                        
 
 
@@ -274,6 +301,24 @@ angular.module('makemybooking.appointmentsView', [
 
                             scope.setDate(day, time, resource);
                         });
+
+                        scope.times.forEach(function (time, index, times) {
+                            if (index % scope.celsMerge == 1) {
+                                angular.element(elem).bootstrapTable('mergeCells', {
+                                    index: index - 1,
+                                    field: 0,
+                                    rowspan: scope.celsMerge
+                                });
+                                if (index % (60 / scope.granularity) == 1) {
+                                    angular.element(elem).find('#tr_id' + (index - 1)).addClass('highlighthour');
+                                } else {
+                                    angular.element(elem).find('#tr_id' + (index - 1)).addClass('highlight');
+                                }
+                            }
+
+                        });
+                        scope.refreshBusy(appointments);
+                       
                     }
                 });
             }

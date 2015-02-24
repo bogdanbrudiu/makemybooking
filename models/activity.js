@@ -7,7 +7,7 @@ var ActivitySchema = new Schema({
   duration: { type: String, required: true },
   user: {
 	    id: { type: String, required: true },
-	    displayName: String
+	    displayName: Number
 	  }
 });
 

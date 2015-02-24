@@ -34,7 +34,7 @@ var AppointmentSchema = new Schema({
 		type : Date,
 		required : true
 	},
-	remarks : String,
+	remarks : [{displayName: String , duration:  Number}],
 	status : String
 });
 

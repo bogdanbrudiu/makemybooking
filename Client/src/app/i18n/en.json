@@ -58,9 +58,10 @@
         "fwdays": "Days to display",
         "whours": "Hours/day",
         "granularity": "Minimum interval (minutes)",
-        "startingh": "Starting hour" 
+        "startingh": "Starting hour"
     },
     "appointment": {
+         "Appointments": "Appointments",
         "Upcoming": "Upcoming appointments",
         "Past": "Past appointments",
         "CreateNew": "Create new appointments",

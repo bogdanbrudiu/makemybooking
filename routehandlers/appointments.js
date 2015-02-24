@@ -1,4 +1,6 @@
 var Appointment = require('../models/appointment');
+var Client = require('../models/client');
+
 
 function mapAppointment(dbAppointment) {
   var halAppointment = {
@@ -49,21 +51,54 @@ exports.create = function (req, res) {
   var newAppointment = new Appointment(req.body);
   newAppointment.user.id = req.user.id;
   newAppointment.user.displayName = req.user.displayName;
-  newAppointment.save(function (err, savedAppointment) {
-    if (err) {
-      if (err.name === 'ValidationError') {
-        res.status(422).send(err);
-      }
-      else {
-        res.status(400).send(err);
-      }
-      return;
-    }
-    res.set('Location', '/api/appointments/' + savedAppointment.id);
-    res.status(201).send(mapAppointment(savedAppointment));
-  });
-};
+  if ((newAppointment.client.displayName != "" ||
+    newAppointment.client.phone != "" ||
+    newAppointment.client.email != "") &&
+      newAppointment.client.id == undefined
+      ) {
+      //we have inline Client Add
 
+      var newClient = new Client();
+      newClient.user.id = req.user.id;
+      newClient.user.displayName = req.user.displayName;
+
+      newClient.displayName = newAppointment.client.displayName;
+      newClient.phone = newAppointment.client.phone;
+      newClient.email = newAppointment.client.email;
+
+      newClient.save(function (err, savedClient) {
+          if (err) {
+              if (err.name === 'ValidationError') {
+                  res.status(422).send(err);
+              }
+              else {
+                  res.status(400).send(err);
+              }
+              return;
+          }
+          newAppointment.client = savedClient;
+          saveAppointment(req, res, newAppointment);
+      });
+  } else {
+
+      saveAppointment(req, res, newAppointment);
+  }
+};
+function saveAppointment(req, res, newAppointment) {
+    newAppointment.save(function (err, savedAppointment) {
+        if (err) {
+            if (err.name === 'ValidationError') {
+                res.status(422).send(err);
+            }
+            else {
+                res.status(400).send(err);
+            }
+            return;
+        }
+        res.set('Location', '/api/appointments/' + savedAppointment.id);
+        res.status(201).send(mapAppointment(savedAppointment));
+    });
+}
 exports.getById = function (req, res) {
   var appointmentId = req.params.id;
   Appointment.findById(appointmentId, function(err, dbAppointment) {
@@ -158,6 +193,8 @@ exports.publiccreate = function (req, res) {
   var newAppointment = new Appointment(req.body);
   newAppointment.user.id = req.user.id;
   newAppointment.user.displayName = req.user.displayName;
+  newAppointment.status = "NotYetAccepted";
+
 try{
   if(req.body.client == undefined || req.body.client.email == undefined ){
 	res.status(422).send({"message":"Client email is mandatory for public appointment!"});

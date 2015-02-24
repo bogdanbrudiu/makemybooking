@@ -3,7 +3,7 @@
   "deps": [],
   "constants": {
   	"config": {
-      "defaultApiEndpoint": "http://www.makemybooking.co/api"
+      "defaultApiEndpoint": "http://localhost:3000/api"
   	}
   }
 }

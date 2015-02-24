@@ -17,8 +17,7 @@ exports.create = function (req, res) {
   var newActivity = new Activity(req.body);
   newActivity.user.id = req.user.id;
   newActivity.user.displayName = req.user.displayName;
-  newActivity.user.email = req.user.email;
-  newActivity.user.phone = req.user.phone;
+
   newActivity.save(function (err, savedActivity) {
     if (err) {
       if (err.name === 'ValidationError') {

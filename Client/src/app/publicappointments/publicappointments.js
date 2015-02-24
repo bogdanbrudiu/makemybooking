@@ -84,6 +84,11 @@ angular.module('makemybooking.publicappointments', [
     $scope.refreshBusy = function (appointments) {
         //$('.bootstraptable').bootstrapTable('destroy');
         $('td').removeClass("isbusy");
+
+        $('td:not(:first-child)').css('display', '');
+        $('td:not(:first-child)').removeAttr("colspan");
+        $('td:not(:first-child)').removeAttr("rowspan");
+        $('td:not(:first-child)').html("&nbsp;");
         appointments.forEach(function (appointment) {
             if (appointment.resource) {
                 appDate = new Date(appointment.dateAndTime);
@@ -92,13 +97,28 @@ angular.module('makemybooking.publicappointments', [
                 today.setHours(0, 0, 0, 0);
                 day = (appDate - today) / (1000 * 60 * 60 * 24);
 
-                for (i = 0; i < appointment.duration / $scope.granularity; i++) {
-                    min = new Date(appointment.dateAndTime).getMinutes() + i * $scope.granularity;
-                    hour = new Date(appointment.dateAndTime).getHours() + Math.floor(min / 60);
-                    time = hour + "-" + (min % 60 == 0 ? "00" : min % 60);
-                    
-                    $('td[id^="cell_' + day + '_' + time + '_' + (appointment.resource ? appointment.resource.id : '') + '"]').addClass("isbusy");
+                //for (i = 0; i < appointment.duration / $scope.granularity; i++) {
+                i = 0;
+                min = new Date(appointment.dateAndTime).getMinutes() + i * $scope.granularity;
+                hour = new Date(appointment.dateAndTime).getHours() + Math.floor(min / 60);
+                time = hour + "-" + (min % 60 == 0 ? "00" : min % 60);
+
+                $('td[id^="cell_' + day + '_' + time + '_' + (appointment.resource ? appointment.resource.id : '') + '"]').addClass("isbusy");
+             
+
+
+
+
+                $('#' + appointment.resource.id).bootstrapTable('mergeCells', {
+                    index: $scope.times.indexOf(hour + ":" + (min % 60 == 0 ? "00" : min % 60)),
+                    field: day + 1,
+                    rowspan: Math.ceil(appointment.duration / $scope.granularity)
+                });
+
+                if (appointment.status != undefined) {
+                    $('td[id^="cell_' + day + '_' + time + '_' + (appointment.resource ? appointment.resource.id : '') + '"]').addClass("notAccepted");
                 }
+                //}
             }
         });
     }
@@ -201,27 +221,43 @@ angular.module('makemybooking.publicappointments', [
     };
 
     $scope.beforeRender = function ($view, $dates, $leftDate, $upDate, $rightDate) {
-        
-       $scope.appointmentsPromise.then(function(appointments) {
-                    appointments.forEach(function (appointment){
-                        $dates.forEach(function (date){
 
-                            if(appointments.filter(
-                                function (element){ 
-                                    if(date.dateValue+new Date().getTimezoneOffset()*60*1000 >= Date.parse(element.dateAndTime) &&
-                                       date.dateValue+new Date().getTimezoneOffset()*60*1000 < Date.parse(element.endDateAndTime))
-                            {	 
-                                        return element;
+        $scope.appointmentsPromise.then(function (appointments) {
+            appointments.forEach(function (appointment) {
+                $dates.forEach(function (date) {
+                    if ($view == "hour") {
+                        var count = 0;
+                        for (i = 0; i < 60; i = i + $scope.granularity) {
+                            if (appointments.filter(
+                           function (element) {
+                               if (date.dateValue + new Date().getTimezoneOffset() * 60 * 1000 + i * 60 * 1000 >= Date.parse(element.dateAndTime) &&
+                                  date.dateValue + new Date().getTimezoneOffset() * 60 * 1000 + i * 60 * 1000 < Date.parse(element.endDateAndTime)) {
+                                return element;
                             }
-                            }).length>0){
-                                $dates[$dates.indexOf(date)].selectable = false;
+                            }).length > 0) {
+                                count++;
                             }
+                        }
+                        if (count == 60 / $scope.granularity) {
+                            $dates[$dates.indexOf(date)].selectable = false;
+                        }
+                    } else {
+                        if (appointments.filter(
+                            function (element) {
+                                if (date.dateValue + new Date().getTimezoneOffset() * 60 * 1000 >= Date.parse(element.dateAndTime) &&
+                                   date.dateValue + new Date().getTimezoneOffset() * 60 * 1000 < Date.parse(element.endDateAndTime)) {
+                                    return element;
+                        }
+                        }).length > 0) {
+                            $dates[$dates.indexOf(date)].selectable = false;
+                        }
+                    }
 
 
-                        })
-                    });
-    });
-}
+                })
+            });
+        });
+    }
     initAppointment();
     $scope.appointmentsPromise = load();
   
@@ -251,7 +287,7 @@ angular.module('makemybooking.publicappointments', [
                            
                         });
                        
-
+                        scope.refreshBusy(appointments);
 
                         angular.element(elem).find('td:not(:first-child):not(.isbusy)').click(function () {
                             cellid = this.id;

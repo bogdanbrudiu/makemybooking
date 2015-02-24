@@ -11,7 +11,7 @@
             <!--<tab heading="All" ng-click="newAppointment.resource = null">Static content</tab>-->
             <tab ng-repeat="resource in resources" heading="{{resource.displayName}}" ng-click="updateResource(resource)">
             
-                <table id="{{resource.id}}" data-toggle="table" data-height="300" data-classes="table table-ultracondensed" bootstraptable>
+                <table id="{{resource.id}}" data-toggle="table" data-height="400" data-classes="table table-ultracondensed" bootstraptable>
                     <thead>
                         <tr>
                             <th>Hour</th>
@@ -44,7 +44,7 @@
                     </div>
                 </a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <datetimepicker ng-model="newAppointment.dateAndTime" data-before-render="beforeRender($view, $dates, $leftDate, $upDate, $rightDate)" datetimepicker-config="{ dropdownSelector: '#dropdown2', startView: 'hour', minuteStep: 15 }" />
+                    <datetimepicker ng-model="newAppointment.dateAndTime" data-before-render="beforeRender($view, $dates, $leftDate, $upDate, $rightDate)" datetimepicker-config="{ dropdownSelector: '#dropdown2', startView: 'hour', minuteStep: {{granularity}} }" />
                 </ul>
             </div>
         </div>
@@ -61,15 +61,47 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="client">{{ 'appointment.Client' | translate }}</label>
-            <select class="form-control" id="client" ng-model="newAppointment.client" ng-options="client as client.displayName for client in clients">
-                <option value="">{{ 'appointment.PickClient' | translate }}</option>
+            <label for="resource">{{ 'appointment.Resource' | translate }}</label>
+            <select class="form-control" id="resource" ng-model="newAppointment.resource" ng-options="resource as resource.displayName for resource in resources">
+                <option value="">{{ 'appointment.PickResource' | translate }}</option>
             </select>
+        </div>
+        <div class="form-group">
+            <label for="client">{{ 'appointment.Client' | translate }}</label>
+            <div class="input-group">
+                <select class="form-control" id="client" ng-model="newAppointment.client" ng-options="client as client.displayName for client in clients">
+                    <option value="">{{ 'appointment.PickClient' | translate }}</option>
+                </select>
+                <span class="input-group-btn">
+                    <button class="btn btn-default" data-toggle="collapse" data-target="#addClientPanel">
+                        <span class="glyphicon glyphicon-plus " aria-hidden="true"></span>
+                    </button>
+                </span>
+        </div>
+        <div class="form-group">
+            <div id="addClientPanel" class="panel panel-default collapse">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="displayName">{{ 'client.DisplayName' | translate }}</label>
+                        <input type="text" class="form-control" id="displayName" placeholder="{{ 'client.DisplayName' | translate }}" ng-model="newAppointment.client.displayName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">{{ 'client.Phone' | translate }}</label>
+                        <input type="text" class="form-control" id="phone" placeholder="{{ 'client.Phone' | translate }}" ng-model="newAppointment.client.phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">{{ 'client.Email' | translate }}</label>
+                        <input type="text" class="form-control" id="email" placeholder="{{ 'client.Email' | translate }}" ng-model="newAppointment.client.email">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <div class="checkbox" ng-repeat="activity in activities">
                 <label>
-                    <input type="checkbox" checklist-model="newAppointment.remarks" checklist-value="activity" > {{activity.displayName}} {{activity.duration}}
+                    <input type="checkbox" checklist-model="newAppointment.remarks" checklist-value="activity"> {{activity.displayName}} {{activity.duration}}
                 </label>
             </div>
 
@@ -77,8 +109,8 @@
 
         </div>
     </div>
-  <!--<div class="col-md-6">
-    <h2>{{ 'appointment.Upcoming' | translate }}</h2>
+<div class="col-md-6">
+    <h2>{{ 'appointment.Appointments' | translate }}</h2>
     <p ng-if="appointments.length === 0">-- {{ 'common.None' | translate }} --</p>
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="appointment in appointments">
@@ -87,13 +119,13 @@
                     <a href="" class="pull-right" ng-click="removeAppointment(appointment)" title="{{ 'common.Remove' | translate }}"><span class="glyphicon glyphicon-remove"></span></a>
                     <a class="dropdown-toggle" role="button" data-toggle="dropdown" data-target="#" title="{{ 'appointment.Reschedule' | translate }}" id="appointment{{$index}}" href="" ng-click="setAppointmentForEdit(appointment)"><span class="glyphicon glyphicon-time"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <datetimepicker data-ng-model="editAppointment.dateAndTime" data-datetimepicker-config="{ dropdownSelector: '#appointment{{$index}}', startView: 'hour', minuteStep: 15 }" on-set-time="reschedule(newDate, oldDate)" />
+                        <datetimepicker data-ng-model="editAppointment.dateAndTime" data-datetimepicker-config="{ dropdownSelector: '#appointment{{$index}}', startView: 'hour', minuteStep: {{granularity}} }" on-set-time="reschedule(newDate, oldDate)" />
                     </ul>
                 </div>
             </div>
-            <h4 class="list-group-item-heading">{{appointment.title}} <small>{{appointment.dateAndTime | date:'d MMM, y H:mm'}}-{{appointment.endDateAndTime | date:'H:mm'}}, duration {{appointment.duration}} mins</small></h4>
-            <p class="list-group-item-text">{{appointment.remarks}}</p>
+            <h4 class="list-group-item-heading"><small style="color:orange">{{appointment.status}}</small> {{appointment.client.displayName}}<small>/{{appointment.resource.displayName}}</small> {{appointment.title}} <small>{{appointment.dateAndTime | date:'d MMM, y H:mm'}}-{{appointment.endDateAndTime | date:'H:mm'}}, duration {{appointment.duration}} mins</small></h4>
+            <p class="list-group-item-text" ng-repeat="activity in appointment.remarks">{{activity.displayName}}</p>
         </li>
     </ul>
-  </div>-->
+  </div>
 </div>

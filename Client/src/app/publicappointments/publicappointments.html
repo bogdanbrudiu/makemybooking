@@ -8,14 +8,22 @@
         <input type="text" class="form-control" id="title" placeholder="{{ 'appointment.DisplayName' | translate }}" ng-model="newAppointment.title">
       </div>
         <div class="form-group">
-            <label for="email">{{ 'appointment.Email' | translate }}</label>
+            <label for="displayName">{{ 'client.DisplayName' | translate }}</label>
+            <input type="text" class="form-control" id="email" placeholder="{{ 'client.DisplayName' | translate }}" ng-model="newAppointment.client.displayName">
+        </div>
+        <div class="form-group">
+            <label for="email">{{ 'client.Email' | translate }}</label>
             <input type="text" class="form-control" id="email" placeholder="{{ 'client.Email' | translate }}" ng-model="newAppointment.client.email">
+        </div>
+        <div class="form-group">
+            <label for="phone">{{ 'client.Phone' | translate }}</label>
+            <input type="text" class="form-control" id="phone" placeholder="{{ 'client.Phone' | translate }}" ng-model="newAppointment.client.phone">
         </div>
         <tabset justified="true" >
             <!--<tab heading="All" ng-click="newAppointment.resource = null">Static content</tab>-->
             <tab ng-repeat="resource in resources" heading="{{resource.displayName}}" ng-click="updateResource(resource)">
             
-                <table id="{{resource.id}}" data-toggle="table" data-height="300" data-classes="table table-ultracondensed" bootstraptable>
+                <table id="{{resource.id}}" data-toggle="table" data-height="400" data-classes="table table-ultracondensed" bootstraptable>
                     <thead>
                         <tr>
                             <th>Hour</th>
@@ -48,7 +56,7 @@
                     </div>
                 </a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <datetimepicker ng-model="newAppointment.dateAndTime" data-before-render="beforeRender($view, $dates, $leftDate, $upDate, $rightDate)" datetimepicker-config="{ dropdownSelector: '#dropdown2', startView: 'hour', minuteStep: 15 }" />
+                    <datetimepicker ng-model="newAppointment.dateAndTime" data-before-render="beforeRender($view, $dates, $leftDate, $upDate, $rightDate)" datetimepicker-config="{ dropdownSelector: '#dropdown2', startView: 'hour', minuteStep: {{granularity}} }" />
                 </ul>
             </div>
         </div>
