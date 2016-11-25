@@ -113,8 +113,7 @@ describe('Appointment tests', function () {
     var testAppointment = {
       title: 'Regular full massage',
       dateAndTime: dateBaseline.clone().add(1,'days').add(16,'hours').toISOString(),
-      endDateAndTime: dateBaseline.clone().add(1,'days').add(17,'hours').toISOString(),
-      remarks: 'I\'d like the same oil as last time.'
+      endDateAndTime: dateBaseline.clone().add(1,'days').add(17,'hours').toISOString()
     }
 
     it('returns a 401 when not authenticated', function (done) {
@@ -341,12 +340,11 @@ describe('Appointment tests', function () {
         .patch('/api/appointments/' + existingAppointmentId)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
-        .send({ remarks: '<script>alert("p0wned");</script> content that should not be cleaned' })
+        .send({ title: '<script>alert("p0wned");</script> content that should not be cleaned' })
         .expect(200)
         .end(function (err, res) {
           should.not.exist(err);
-          res.body.title.should.equal('Testappointment 1');
-          res.body.remarks.should.equal(' content that should not be cleaned');
+          res.body.title.should.equal(' content that should not be cleaned');
           done();
         });
     });

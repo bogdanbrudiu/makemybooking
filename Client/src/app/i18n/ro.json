@@ -42,6 +42,7 @@
         "CreateNew": "Creează o activitate nouă",
         "DisplayName": "Nume",
         "Duration": "Durată",
+ 	"Price": "Preţ",
         "Activities": "Activităţi",
         "Created": "Activitate creeată cu succes"
     },

@@ -4,10 +4,11 @@ var Schema = mongoose.Schema;
 
 var ActivitySchema = new Schema({
   displayName: { type: String },
-  duration: { type: String, required: true },
+  duration: { type: Number, required: true },
+  price: { type: Number, required: true },
   user: {
 	    id: { type: String, required: true },
-	    displayName: Number
+	    displayName: String
 	  }
 });
 

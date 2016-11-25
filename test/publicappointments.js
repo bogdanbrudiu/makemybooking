@@ -121,7 +121,6 @@ beforeEach(function (done) {
       title: 'Regular full massage',
       dateAndTime: dateBaseline.clone().add(1,'days').add(16,'hours').toISOString(),
       endDateAndTime: dateBaseline.clone().add(1,'days').add(17,'hours').toISOString(),
-      remarks: 'I\'d like the same oil as last time.',
 	client: {
 		email: 'secret@Email'
 	},

@@ -56,6 +56,7 @@ describe('Activity tests', function () {
       var activities = [{
     	  displayName: 'tuns',
     	  duration: 40,
+    	  price: 10,
         user: { 
           id: user.id,
           displayName: user.displayName
@@ -63,6 +64,7 @@ describe('Activity tests', function () {
       }, {
     	  displayName: 'frezat',
     	  duration: 15,
+	  price: 10,
         user: { 
           id: user.id,
           displayName: user.displayName
@@ -110,7 +112,8 @@ describe('Activity tests', function () {
 
     var testActivity = {
     		displayName: 'spalat',
-    		duration: 10
+    		duration: 10,
+		price: 10
     }
 
     it('returns a 401 when not authenticated', function (done) {
@@ -159,6 +162,7 @@ describe('Activity tests', function () {
       var client = {
     		  displayName: 'tuns',
     		  duration: 40,
+                  price: 10,
         user: { 
           id: user.id,
           displayName: user.displayName
@@ -230,6 +234,7 @@ describe('Activity tests', function () {
       var client = {
     		  displayName: 'tuns',
     		  duration: 40,
+		  price: 10,
         user: { 
           id: user.id,
           displayName: user.displayName
@@ -285,12 +290,13 @@ describe('Activity tests', function () {
         .patch('/api/activities/' + existingActivityId)
         .set('Accept', 'application/json')
         .set('authorization', 'Bearer ' + token)
-        .send({ displayName: "new display name", duration: "new duration" })
+        .send({ displayName: "new display name", duration: "11", price: "22" })
         .expect(200)
         .end(function (err, res) {
           should.not.exist(err);
           res.body.displayName.should.equal('new display name');
-          res.body.duration.should.equal('new duration');
+          res.body.duration.should.equal(11);
+          res.body.price.should.equal(22);
           done();
         });
     });
@@ -319,6 +325,7 @@ describe('Activity tests', function () {
       var client = {
     		  displayName: 'tuns',
     		  duration: 40,
+		  price: 10,
         user: { 
           id: user.id,
           displayName: user.displayName

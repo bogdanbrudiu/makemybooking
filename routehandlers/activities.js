@@ -8,7 +8,8 @@ function mapActivity(dbActivity) {
     },
     id: dbActivity.id,
     displayName: dbActivity.displayName,
-    duration: dbActivity.duration
+    duration: dbActivity.duration,
+    price: dbActivity.price
   };
   return halActivity;
 }

@@ -63,6 +63,7 @@ describe('Public Activity tests', function () {
       var activities = [{
     	  displayName: 'tuns',
     	  duration: 40,
+    	  price: 10,
         user: { 
           id: userAllows.id,
           displayName: userAllows.displayName
@@ -70,6 +71,7 @@ describe('Public Activity tests', function () {
       }, {
     	  displayName: 'frezat',
     	  duration: 15,
+    	  price: 10,
         user: { 
           id: userAllows.id,
           displayName: userAllows.displayName

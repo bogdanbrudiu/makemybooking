@@ -156,6 +156,17 @@ gulp.task('config', function () {
     }))
     .pipe(gulp.dest('./src/app/'));
 });
+gulp.task('config-prod', function () {
+  return gulp.src('config-prod.json')
+    .pipe(g.ngConstant({
+      constants: { 
+        appName: bower.name,
+        appVersion: bower.version,
+        appDescription: bower.description
+      } 
+    }))
+    .pipe(gulp.dest('./src/app/'));
+});
 
 gulp.task('clean-dist', function () {
   return gulp.src('../public').pipe(g.clean());
@@ -164,7 +175,7 @@ gulp.task('clean-dist', function () {
 /**
  * Dist
  */
-gulp.task('dist', ['config', 'vendors', 'assets', 'i18n', 'fonts-dist', 'styles-dist', 'scripts-dist'], function () {
+gulp.task('dist', ['config-prod', 'vendors', 'assets', 'i18n', 'fonts-dist', 'styles-dist', 'scripts-dist'], function () {
   return gulp.src(['./src/app/index.html'])
     .pipe(g.inject(gulp.src('../public/vendors.min.js'), {addRootSlash: false, ignorePath: 'vagrant/MakeMyBooking/public', starttag: '<!-- inject:vendor:js -->'}))
     .pipe(g.inject(gulp.src('../public/styles/vendors.min.css'), {addRootSlash: false, ignorePath: 'vagrant/MakeMyBooking/public', starttag: '<!-- inject:vendor:css -->'}))

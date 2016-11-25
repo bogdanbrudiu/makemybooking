@@ -268,8 +268,7 @@ describe(
 														should.not.exist(err);
 														res.body.provider.should
 																.equal(user.provider);
-														res.body.userId.should
-																.equal(user.userId);
+												
 														res.body.email.should
 																.equal(user.email);
 														res.body.displayName.should

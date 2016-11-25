@@ -14,6 +14,11 @@
         <input type="text" class="form-control" id="duration" placeholder="{{ 'activity.Duration' | translate }}" ng-model="newActivity.duration">
       </div>
 
+  	<div class="form-group">
+        <label for="price">{{ 'activity.Price' | translate }}</label>
+        <input type="text" class="form-control" id="price" placeholder="{{ 'activity.Price' | translate }}" ng-model="newActivity.price">
+      </div>
+
       <button type="submit" class="btn btn-default" ng-click="createActivity()" ng-disabled="form.$invalid">{{ 'common.Create' | translate }}</button>
     </form>
 

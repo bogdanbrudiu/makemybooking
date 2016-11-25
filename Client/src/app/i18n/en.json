@@ -42,6 +42,7 @@
         "CreateNew": "Create new activity",
         "DisplayName": "Name",
         "Duration": "Duration",
+ 	"Price": "Price",
         "Activities": "Activities",
         "Created": "Activity created successfully"
     },
